@@ -3,7 +3,7 @@
 export const SITE = {
   url: 'https://frosteagle.com',
   name: 'Frost Eagle',
-  tagline: 'Identity engineering notes by David Gbuzue',
+  tagline: 'Identity governance consulting and field notes, Sydney',
   description:
     'Field notes on Microsoft Entra ID Governance and HR-driven provisioning: how a person gets from the HR record to the right access, and what breaks along the way.',
   locale: 'en-AU',

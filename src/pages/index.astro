@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Trace from '../components/Trace.astro';
 import PostList from '../components/PostList.astro';
-import { SITE } from '../config';
+import { AUTHOR, SITE } from '../config';
 import { getPosts } from '../lib/posts';
 import { personSchema } from '../lib/schema';
 
@@ -18,7 +18,17 @@ const jsonLd = [
     url: `${SITE.url}/`,
     description: SITE.description,
     inLanguage: SITE.locale,
-    author: { '@id': `${SITE.url}/about/#person` },
+    publisher: { '@id': `${SITE.url}/#org` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${SITE.url}/#org`,
+    name: SITE.name,
+    url: `${SITE.url}/`,
+    logo: `${SITE.url}/favicon.svg`,
+    email: AUTHOR.email,
+    founder: { '@id': `${SITE.url}/about/#person` },
   },
   { '@context': 'https://schema.org', ...personSchema() },
 ];
@@ -30,7 +40,7 @@ const jsonLd = [
       <p>Field notes on Microsoft Entra ID Governance and HR-driven provisioning, from real hybrid deployments. What each stage does, what breaks, and how to fix it.</p>
       <Trace counts={counts} animate />
       <p class="trace-note">Articles are filed by where they sit in the pipeline. New here? <a href="/articles/payroll-to-entra-hop-by-hop/">Start with the overview</a>, which follows one new starter through every stage.{counts['delivery'] ? <> Notes on running identity projects are under <a href="/stages/delivery/">Delivery craft</a>.</> : null}</p>
-      <p class="trace-note">I also help small and medium businesses set this up. <a href="/consulting/">See how I work</a>.</p>
+      <p class="trace-note">Frost Eagle also sets this up for small and medium businesses. <a href="/consulting/">See how we work</a>.</p>
     </section>
 
     <section aria-labelledby="latest">

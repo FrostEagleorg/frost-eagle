@@ -1,63 +1,69 @@
 ---
 import Base from '../layouts/Base.astro';
-import Journey from '../components/Journey.astro';
 import { AUTHOR, SITE } from '../config';
 import { personSchema } from '../lib/schema';
 
 const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
 
-const fixes = [
-  {
-    name: 'Before they start',
-    body: "As soon as HR enters a new starter, their account is created from the payroll record, with a consistent name, username and email address. Their role and site are worked out from their job title and location, and their manager is linked. Ahead of the start date, the manager is told who's coming and a ticket is raised for anything that still needs a person, like a laptop.",
-  },
-  {
-    name: 'First day',
-    body: "The account is switched on for their start date, and the manager receives a one-time code to get them signed in. Everything their role and site need is already there. If HR entered them late, even after their first day, they're picked up and set up anyway.",
-  },
-  {
-    name: 'When they change roles',
-    body: "A new title or site in payroll is all it takes. Access for the new role is added, access for the old one is removed after a short handover period, and the right people are told so anything manual can be done.",
-  },
-  {
-    name: 'When they leave',
-    body: "The end date in payroll drives the rest. On their last day their access is removed and their account is switched off, and their mailbox is kept for whoever picks up their work. If someone has to leave immediately, IT can run the same steps on demand. If they come back later, they return as the same person, with their history intact.",
-  },
-  {
-    name: 'All along',
-    body: "Anyone who needs extra access can request it, with the right approver and an expiry date. Access is reviewed regularly by the people who know whether it's still needed, and admin accounts come from the same HR record, so they're switched off with everything else. When an auditor or insurer asks who has access to what and why, the answer is already written down.",
-  },
+const problems = [
+  { title: 'New starters wait', body: 'Accounts arrive a day or two late, or on time with half the access missing, and the first week goes on chasing it.' },
+  { title: 'Access gets copied', body: 'People are set up by cloning a colleague in a similar job, and quietly inherit everything that colleague collected over the years.' },
+  { title: 'Leavers linger', body: "Nobody told IT in time, so a former employee can still get into email and business apps weeks after they've gone." },
+  { title: 'Nobody can say who approved it', body: 'When an auditor, a client or a cyber insurer asks who has access to what, the answer is buried in old tickets and inboxes.' },
 ];
 
-const process = [
+const lifecycle = [
+  { name: 'Before they start', body: 'Their account is created from the payroll record, with their role, site and manager worked out. The manager hears who is coming, and a ticket goes out for the laptop.' },
+  { name: 'First day', body: 'The account switches on for their start date, the manager gets a one-time code to sign them in, and everything their role needs is already there.' },
+  { name: 'Changing roles', body: 'A new title or site in payroll adds the new access and removes the old after a short handover. Anyone with manual work to do is told.' },
+  { name: 'Leaving', body: 'On their last day access is removed and the account is switched off, with the mailbox kept for whoever takes over. Urgent exits run on demand.' },
+  { name: 'All along', body: 'Extra access is requested and approved with an expiry date, reviewed regularly, and recorded, so the audit answer is always ready.' },
+];
+
+const capabilities = [
+  { title: 'Connects to your HR system', body: 'Including HR and payroll systems that Entra ID has no built-in connector for.' },
+  { title: 'One clean copy of your people data', body: 'Kept current, with a history of every change for when audit asks.' },
+  { title: 'Turns payroll data into roles and sites', body: 'Job titles grouped into roles, location codes matched to real places.' },
+  { title: 'Handles the awkward cases', body: 'Late starters, late terminations and rehires still get the right treatment.' },
+];
+
+const stages = [
   {
     name: 'Readiness review',
-    body: "I look at the four things that decide how big the job is: your HR data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most of the risk is in the HR data, so that's where I spend the most time.",
-    outcome: 'You get a short written report of what I found, what needs fixing first, a recommended design, and a fixed quote for the rest.',
+    outcome: 'A short report, a recommended design and a fixed quote.',
+    body: "We look at the four things that decide how big the job is: your HR data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most of the risk sits in the HR data, so that's where we spend the most time. You can stop here and keep the report.",
   },
   {
     name: 'Design',
-    body: "We agree what drives access, what people get automatically and what they ask for, when accounts are switched on and off, and how it connects to your other systems. Every decision is written down in plain language, with the options we didn't take and why.",
-    outcome: 'A design you sign off before any build starts, so the scope and the price are settled.',
+    outcome: 'A signed-off design, so scope and price are settled.',
+    body: "Together we decide what drives access, what people get automatically and what they ask for, when accounts are switched on and off, and how it connects to your other systems. Every decision is written down in plain language, along with the options we didn't take and why.",
   },
   {
     name: 'Build and switch on',
-    body: "I build it alongside your current process and test it against your real HR data. Nothing changes for your people until it's ready, and then we switch it on a group at a time so any surprises stay small.",
-    outcome: 'Joiners, movers and leavers handled automatically, in production.',
+    outcome: 'Joiners, movers and leavers running automatically.',
+    body: "We build it alongside your current process and test it against your real HR data, not tidy samples. Nothing changes for your people until it's ready, and then we switch it on a group at a time so any surprises stay small.",
   },
   {
     name: 'Handover',
-    body: "Your IT team, or your managed service provider, gets clear documentation and a walk-through of how it all fits together. If you'd like someone to call on afterwards, we can agree that separately.",
-    outcome: 'Something your team can run and change without me.',
+    outcome: 'Something your team can run without us.',
+    body: "Your IT team, or your managed service provider, gets clear documentation and a walk-through of how it all fits together. If you'd like us on call afterwards, we can agree that separately.",
   },
+];
+
+const work = [
+  { who: 'Industrial business, Australia and New Zealand', what: 'Payroll-driven provisioning into Active Directory and Entra ID, automated joiners, movers and leavers, rule-based access, and ServiceNow integration.' },
+  { who: 'Australian financial institution', what: 'Identity governance and privileged access designed together, from HR-driven provisioning through to BeyondTrust.' },
+  { who: 'A university and a healthcare distributor', what: 'Privileged access management with BeyondTrust.' },
 ];
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: `${AUTHOR.name}, identity governance consulting`,
+    name: SITE.name,
+    logo: `${SITE.url}/favicon.svg`,
     url: `${SITE.url}/consulting/`,
+    email: AUTHOR.email,
     areaServed: ['Australia', 'New Zealand'],
     founder: personSchema(),
     description:
@@ -65,51 +71,459 @@ const jsonLd = [
   },
 ];
 ---
-<Base title="Consulting" description="I help small and medium businesses in Australia and New Zealand automate who gets access, from the HR record to the day someone leaves, using Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
-  <div class="wrap">
-    <header class="page-head">
-      <h1>Consulting</h1>
-      <p>I help small and medium businesses in Australia and New Zealand give their people the right access automatically, from the moment HR enters them to the day they leave. It's built on Microsoft Entra ID Governance, an add-on to the Microsoft licences many businesses already have.</p>
+<Base title="Consulting" description="We help small and medium businesses in Australia and New Zealand let their HR system run access: onboarding, role changes and offboarding, automated with Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
+  <div class="wrap consult">
+    <header class="hero-c">
+      <h1>Let your HR system run access.</h1>
+      <p>Frost Eagle is a small identity team helping small and medium businesses in Australia and New Zealand set people up, move them and switch them off automatically, straight from HR. It runs on Microsoft Entra ID Governance, an add-on to the Microsoft licences many businesses already have.</p>
+      <p class="hero-actions"><a class="button" href={`mailto:${AUTHOR.email}`}>Email {AUTHOR.email}</a></p>
     </header>
 
-    <div class="prose">
-      <h2>The problems</h2>
-      <p>In most growing businesses, setting people up and switching them off is handled by one or two people in IT, or by the managed service provider, working from emails and tickets. It works until it doesn't.</p>
-      <ul>
-        <li>New starters wait for accounts, or arrive to find half their access missing.</li>
-        <li>People are set up by copying a colleague in a similar job, and inherit everything that colleague picked up over the years.</li>
-        <li>Leavers keep access to email and business apps for weeks because nobody told IT in time.</li>
-        <li>When an auditor, a client or a cyber insurer asks who has access to what, and who approved it, nobody can answer quickly.</li>
-      </ul>
-      <p>The information to fix all of this usually exists already. Your HR or payroll system knows who starts, who changes roles and who leaves, and when. It just isn't connected to the systems that grant access.</p>
+    <section aria-labelledby="problems">
+      <h2 id="problems">Sound familiar?</h2>
+      <p class="section-lead">In most growing businesses, one or two people in IT, or the managed service provider, handle starters and leavers from emails and tickets. It works until it doesn't.</p>
+      <div class="problem-grid">
+        {problems.map((p) => (
+          <div class="problem">
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+      <p class="aside">Your HR or payroll system already knows who starts, who changes roles and who leaves, and when. It just isn't connected to the systems that grant access. That's what we fix.</p>
+    </section>
 
-      <h2>How I fix them</h2>
-      <p>I connect your HR data to Microsoft Entra ID so that it drives access on its own. Once that's running, this is what a person's time with you looks like:</p>
-    </div>
+    <section aria-labelledby="changes">
+      <h2 id="changes">What changes</h2>
+      <p class="section-lead">Once HR data drives access, this is a person's time with you, and none of it needs anyone to remember to do it.</p>
+      <ol class="timeline">
+        {lifecycle.map((s) => (
+          <li>
+            <span class="dot" aria-hidden="true" />
+            <h3>{s.name}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
 
-    <Journey steps={fixes} />
+    <section aria-labelledby="hrdata" class="split">
+      <div>
+        <h2 id="hrdata">Getting your HR data in</h2>
+        <p>Everything above starts with your people data. Where your HR system doesn't connect straight to Entra ID, or the data needs shaping first, we bring in an HR integration platform we've run in production, licensed through a partner.</p>
+        <p>It sits between HR and Entra ID and hands over a complete, consistent record every time. If your HR system already connects cleanly, you won't need it.</p>
+      </div>
+      <dl class="caps">
+        {capabilities.map((c) => (
+          <div>
+            <dt>{c.title}</dt>
+            <dd>{c.body}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
 
-    <div class="prose">
-      <p>Where your HR or payroll system doesn't connect straight to Entra ID, or the data needs shaping first, I bring in an HR integration platform I've used in production, licensed through a partner. It keeps one clean, current copy of your people data with a history of every change, turns job titles and location codes into the roles and sites access is based on, and gives Entra ID a complete, consistent record every time. If your HR system already connects cleanly, you won't need it.</p>
+    <section aria-labelledby="how">
+      <h2 id="how">How we run a project</h2>
+      <p class="section-lead">Four stages, and you can stop after any of them. Open a stage for the detail.</p>
+      <div class="stages">
+        {stages.map((s, i) => (
+          <details class="stage">
+            <summary>
+              <span class="num">{i + 1}</span>
+              <span class="stage-name">{s.name}</span>
+              <span class="stage-outcome">{s.outcome}</span>
+              <span class="more" aria-hidden="true">Read more</span>
+            </summary>
+            <p>{s.body}</p>
+          </details>
+        ))}
+      </div>
+    </section>
 
-      <h2>How a project runs</h2>
-      <p>There are four stages, and you can stop after any of them. Starting with the readiness review on its own is a sensible way to find out what you're dealing with before committing to more.</p>
-    </div>
+    <section aria-labelledby="work">
+      <h2 id="work">Recent work</h2>
+      <p class="section-lead">With the names left out. The <a href="/articles/">articles</a> on this site come out of the same work.</p>
+      <div class="work-grid">
+        {work.map((w) => (
+          <div class="work">
+            <h3>{w.who}</h3>
+            <p>{w.what}</p>
+          </div>
+        ))}
+      </div>
+    </section>
 
-    <Journey steps={process} />
-
-    <div class="prose">
-      <h2>Recent work</h2>
-      <p>Projects I've led or designed, with the names left out:</p>
-      <ul>
-        <li>An industrial business operating across Australia and New Zealand: payroll-driven provisioning into Active Directory and Entra ID, automated joiners, movers and leavers, rule-based access, and ServiceNow integration.</li>
-        <li>An Australian financial institution: identity governance and privileged access together, from HR-driven provisioning through to BeyondTrust.</li>
-        <li>A university and a healthcare distributor: privileged access management with BeyondTrust.</li>
-      </ul>
-      <p>The <a href="/articles/">articles</a> on this site come out of that work, if you'd like to see how I think about these problems before we talk.</p>
-
-      <h2>Start with a conversation</h2>
-      <p>Email me at <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>, or send me a message {linkedin ? <a href={linkedin} rel="me">on LinkedIn</a> : 'on LinkedIn'}, with a line or two about your business: roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
-    </div>
+    <section class="contact" aria-labelledby="talk">
+      <h2 id="talk">Start with a conversation</h2>
+      <p>Tell us roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
+      <p class="contact-actions">
+        <a class="button light" href={`mailto:${AUTHOR.email}`}>Email {AUTHOR.email}</a>
+        {linkedin && <a class="text-link" href={linkedin} rel="me">or message {AUTHOR.name.split(' ')[0]} on LinkedIn</a>}
+      </p>
+    </section>
   </div>
 </Base>
+
+<script>
+  // On devices with a mouse, open a stage while it's hovered. Click and keyboard still work everywhere.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll<HTMLDetailsElement>('details.stage').forEach((d) => {
+      let pinned = false;
+      d.addEventListener('mouseenter', () => { if (!d.open) d.open = true; });
+      d.addEventListener('mouseleave', () => { if (!pinned) d.open = false; });
+      d.querySelector('summary')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        pinned = !pinned;
+        d.open = pinned || d.matches(':hover');
+      });
+    });
+  }
+</script>
+
+<style>
+  .consult section {
+    margin-top: clamp(3.5rem, 8vw, 5.5rem);
+  }
+
+  .consult h2 {
+    font-size: clamp(1.7rem, 3vw, 2.1rem);
+    font-weight: 720;
+  }
+
+  .consult h3 {
+    font-size: 1.15rem;
+    font-weight: 680;
+  }
+
+  .section-lead {
+    margin: 0.8rem 0 0;
+    max-width: 40rem;
+    color: var(--slate);
+  }
+
+  /* hero */
+  .hero-c {
+    padding-top: clamp(3rem, 8vw, 5.5rem);
+  }
+
+  .hero-c h1 {
+    font-size: clamp(2.5rem, 6vw, 4.3rem);
+    font-weight: 760;
+    letter-spacing: -0.035em;
+    line-height: 1.03;
+    max-width: 14ch;
+  }
+
+  .hero-c p {
+    max-width: 40rem;
+    font-size: 1.22rem;
+    color: var(--slate);
+    margin: 1.4rem 0 0;
+  }
+
+  .hero-c .hero-actions {
+    margin-top: 2rem;
+  }
+
+  .button {
+    display: inline-block;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1.02rem;
+    padding: 0.8rem 1.3rem;
+    background: var(--ink);
+    color: var(--frost);
+    text-decoration: none;
+    border-radius: 3px;
+  }
+
+  .button:hover {
+    background: var(--glacier-deep);
+    color: var(--frost);
+    text-decoration: none;
+  }
+
+  .button.light {
+    background: var(--frost);
+    color: var(--ink);
+  }
+
+  .button.light:hover {
+    background: #ffffff;
+    color: var(--ink);
+  }
+
+  /* problems */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 3rem;
+    margin-top: 2rem;
+  }
+
+  .problem {
+    border-top: 2px solid var(--ink);
+    padding: 1.1rem 0 1.6rem;
+  }
+
+  .problem p,
+  .work p {
+    margin: 0.45rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .aside {
+    max-width: 40rem;
+    margin: 1rem 0 0;
+    font-size: 1.12rem;
+  }
+
+  /* lifecycle timeline */
+  .timeline {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.6rem;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    /* stop at the last dot, which sits at the left edge of the last column */
+    right: calc((100% - 4 * 1.6rem) / 5 - 9px);
+    height: 2px;
+    background: var(--glacier);
+  }
+
+  .timeline li {
+    position: relative;
+  }
+
+  .timeline .dot {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--glacier);
+    margin-bottom: 1.1rem;
+    position: relative;
+  }
+
+  .timeline li:last-child .dot {
+    background: var(--talon);
+  }
+
+  .timeline p {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  /* HR data split */
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .split p {
+    margin: 1rem 0 0;
+  }
+
+  .caps {
+    margin: 0.4rem 0 0;
+  }
+
+  .caps div {
+    border-top: 1px solid var(--rule);
+    padding: 1rem 0;
+  }
+
+  .caps div:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .caps dt {
+    font-family: var(--sans);
+    font-weight: 650;
+    font-size: 1.08rem;
+  }
+
+  .caps dd {
+    margin: 0.3rem 0 0;
+    color: var(--slate);
+    font-size: 1.02rem;
+    line-height: 1.55;
+  }
+
+  /* project stages */
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+    align-items: start;
+  }
+
+  .stage {
+    border-top: 2px solid var(--glacier);
+    padding-top: 1rem;
+  }
+
+  .stage summary {
+    list-style: none;
+    cursor: pointer;
+    display: grid;
+    gap: 0.4rem;
+    font-family: var(--sans);
+  }
+
+  .stage summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .num {
+    font-weight: 700;
+    color: var(--glacier);
+    font-size: 1rem;
+  }
+
+  .stage-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .stage-outcome {
+    font-size: 1rem;
+    color: var(--slate);
+    line-height: 1.45;
+  }
+
+  .more {
+    font-size: 0.92rem;
+    color: var(--glacier);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    margin-top: 0.2rem;
+  }
+
+  .stage[open] .more {
+    display: none;
+  }
+
+  .stage[open] {
+    border-top-color: var(--talon);
+  }
+
+  .stage p {
+    margin: 0.9rem 0 0;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* recent work */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .work {
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+  }
+
+  /* contact band */
+  .contact {
+    background: var(--ink);
+    color: var(--frost);
+    padding: clamp(2rem, 5vw, 3.5rem);
+    border-radius: 4px;
+  }
+
+  .contact h2 {
+    color: var(--frost);
+  }
+
+  .contact p {
+    max-width: 40rem;
+    margin: 1rem 0 0;
+    color: #c9d6de;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-top: 1.75rem !important;
+  }
+
+  .text-link {
+    color: var(--frost);
+    font-family: var(--sans);
+  }
+
+  .text-link:hover {
+    color: #ffffff;
+  }
+
+  @media (max-width: 900px) {
+    .timeline {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      top: 4px;
+      bottom: 1.5rem;
+      left: 7px;
+      right: auto;
+      width: 2px;
+      height: auto;
+    }
+
+    .timeline li {
+      padding-bottom: 1.5rem;
+    }
+
+    .timeline .dot {
+      position: absolute;
+      left: -2rem;
+      top: 4px;
+    }
+
+    .stages {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .split {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .problem-grid,
+    .stages {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

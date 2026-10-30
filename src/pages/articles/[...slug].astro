@@ -34,7 +34,7 @@ const jsonLd = [
     articleSection: stageInfo?.name,
     author: personSchema(),
     image: `${SITE.url}/og/${post.id}.png`,
-    publisher: { '@id': `${SITE.url}/about/#person` },
+    publisher: { '@type': 'Organization', '@id': `${SITE.url}/#org`, name: SITE.name, url: `${SITE.url}/` },
   },
 ];
 ---
@@ -67,7 +67,7 @@ const jsonLd = [
 
     <aside class="author-card" aria-label="About the author">
       <h2>{AUTHOR.name}</h2>
-      <p>{AUTHOR.shortBio} <a href="/about/">More about me</a>, or see <a href="/consulting/">how I work with clients</a>.</p>
+      <p>{AUTHOR.shortBio} <a href="/about/">More about me</a>, or see <a href="/consulting/">how Frost Eagle works with clients</a>.</p>
     </aside>
   </article>
 </Base>
