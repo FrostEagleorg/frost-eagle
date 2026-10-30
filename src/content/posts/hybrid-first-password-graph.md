@@ -1,78 +1,74 @@
 ---
 title: "Why your Logic App can't set a hybrid user's first password"
-description: 'Graph will happily change a synced user''s password from automation. The change just never reaches Active Directory, and the new starter is locked out of the password you sent them.'
+description: 'Graph will happily change a synced user''s password from automation. The change just never reaches Active Directory, and the new starter is left with a password that doesn''t work.'
 pubDate: 2026-11-13
 stage: first-sign-in
 tags: ['Password writeback', 'Microsoft Graph', 'Lifecycle Workflows', 'Hybrid identity']
 draft: true
 ---
 
-The design looked simple. Three days before a new starter's first day, a Lifecycle Workflow calls a Logic App. The Logic App generates a temporary password, sets it on the user through Microsoft Graph, and emails it to their manager. On day one the starter signs in and is forced to choose their own password.
+On paper the design was simple, and I still think it was a reasonable one. Three days before someone started, a Lifecycle Workflow would call a Logic App. The Logic App would generate a temporary password, set it on the user through Microsoft Graph, and email it to their manager. On their first morning the new starter would sign in and be asked to pick a password of their own.
 
-The client signed off on it. In a cloud-only tenant it would have worked. In a hybrid tenant, it can't.
+The client signed it off, and in a cloud-only tenant I'm fairly sure it would have worked. This tenant was hybrid, though, and that's where it came apart.
 
 ## What happened
 
-Every account in this environment was hybrid: created in on-premises Active Directory, synced to Entra ID, with password hash sync on and password writeback enabled.
+Every account was created in on-premises Active Directory and synced up to Entra ID, with password hash sync running and password writeback switched on.
 
-The Logic App ran under its system-assigned managed identity. It called Graph, Graph returned success, and the manager got the email. The temporary password then failed at sign-in. The user's original AD password still worked.
+The Logic App ran as its own managed identity. It called Graph, Graph said the call succeeded, and the manager got their email. Then the temporary password didn't work at sign-in. The user's original AD password still did.
 
-We tried both of Graph's ways to set a password:
+I tried both of the ways Graph lets you set a password: a `PATCH` on the user with a new `passwordProfile`, and the `resetPassword` action on their password authentication method. Each of them changed the password in Entra ID, and neither changed it in AD. Since AD owns a synced user's password, the cloud-side change simply didn't hold. Turning on writeback in Cloud Sync as well made no difference.
 
-- `PATCH /users/{id}` with a new `passwordProfile`
-- `POST .../authentication/methods/{id}/resetPassword`
+## The clue
 
-Both changed the password in Entra ID. Neither changed it in AD. AD owns a synced user's password, so the cloud-side change didn't hold: the old AD password kept working. Turning on writeback in Cloud Sync as well didn't change anything.
+Two things didn't fit the idea that writeback was broken.
 
-## The test that pointed at the cause
+A password reset from the Entra admin center, on the same user, worked fine. That goes through the same writeback path, so writeback itself was clearly doing its job.
 
-Two results didn't fit a broken writeback setup:
+Then I tried it in my lab. Signed in to Graph Explorer as an admin, I called `resetPassword` on a synced user, and the new password reached AD. I could sign in with it and change it afterwards without any trouble.
 
-1. **A reset from the Entra admin center worked** on the same user, through the same writeback path. So writeback was fine.
-2. **In my lab**, signed in as an admin in Graph Explorer, `resetPassword` on a synced user did write back. I signed in with the new password and changed it.
-
-Same API, same kind of user, different result. The difference was who was calling. In the lab a signed-in administrator made the call. In production, an app made it, with nobody signed in.
+So the same API, used on the same kind of user, behaved differently in the two places. What had changed was who was calling it. In my lab it was me, signed in as an administrator. In production it was an app, and nobody was signed in at all.
 
 ## What writeback actually supports
 
-Microsoft's [password writeback documentation](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback) lists the supported cases. The two that matter here are an *administrator-initiated* reset from the Entra admin center, and one from the Graph `resetPassword` API.
+Microsoft's [password writeback documentation](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback) has a list of the operations it supports. Two of them are relevant here: a reset by an administrator from the Entra admin center, and a reset by an administrator through the Graph `resetPassword` API. Both assume an administrator is the one doing it.
 
-The key word is administrator. Here's how the cases line up:
+Putting the documentation together with what I saw:
 
-| Who changes the password | Written back to AD? | Basis |
+| Who changes the password | Reaches AD? | Basis |
 | --- | --- | --- |
-| Admin, Entra admin center | Yes | Microsoft docs |
-| Admin, signed in, Graph `resetPassword` | Yes | Microsoft docs, and my lab |
-| User resetting their own password through Graph | No | Microsoft docs |
-| App or managed identity, Graph `resetPassword` | No | Production result above, and Microsoft Q&A answers |
-| App or managed identity, `PATCH passwordProfile` | No | Production result above, and Microsoft Q&A answers |
+| An admin, in the Entra admin center | Yes | Microsoft docs |
+| An admin, signed in, through Graph `resetPassword` | Yes | Microsoft docs, and my lab |
+| A user resetting their own password through Graph | No | Microsoft docs |
+| An app or managed identity, through Graph `resetPassword` | No | The production result above, and Microsoft Q&A answers |
+| An app or managed identity, through `PATCH passwordProfile` | No | The production result above, and Microsoft Q&A answers |
 
-The documentation never says outright that app-only calls are excluded. It just lists the admin cases. Microsoft staff on Q&A have said app-only resets don't trigger writeback by design, and that matches what I saw.
+The documentation doesn't say in so many words that app-only calls are left out. It only lists the cases where an admin is involved. Microsoft staff answering on Q&A have said that app-only resets don't trigger writeback by design, which lines up with what happened here.
 
-The practical rule: **writeback needs a signed-in admin behind the reset.** A Logic App, a runbook calling Graph, or any other unattended automation doesn't qualify, whatever permissions or roles you give it.
+The way I'd put it now is that writeback needs a signed-in admin behind the reset. A Logic App doesn't count, and neither does a runbook calling Graph or any other unattended automation, whatever permissions or roles you give it.
 
-## It's worse than a password that doesn't work
+## Why it's worse than it sounds
 
-If the temporary password simply failed, the starter would ring the service desk and get a reset. The forced-change flag makes it messier.
+A password that just doesn't work is annoying but fixable: the new starter rings the service desk and somebody resets it. The force-change flag makes this a bit nastier.
 
-A colleague who'd hit this before described the sequence. The starter signs in to Entra with the cloud-only password, is prompted to change it, and the change fails, because it has to be written back to an AD account whose current password is different. It looks like a broken account on day one, for every new starter.
+A colleague who had run into it before explained what the user goes through. They sign in to Entra with the cloud-only password, get prompted to change it, and the change fails, because it has to be written back to an AD account whose current password is something else. From the user's side it looks like their account is broken, and that happens to every new starter on their first day.
 
-## What to do instead
+## What I'd use instead
 
-If accounts are hybrid, the first credential has to come from somewhere AD trusts, or not be a password at all.
+When the accounts are hybrid, the first credential has to come from somewhere AD trusts, or it shouldn't be a password at all.
 
-**Temporary Access Pass.** Lifecycle Workflows has a built-in task that generates one and sends it to the manager. There are no passwords to write back. One catch from my lab: using a TAP during Windows first-run setup forced Windows Hello for Business enrolment, even though the tenant wasn't configured for it. Test that against your device build before you commit.
+The option I recommended was a Temporary Access Pass. Lifecycle Workflows has a built-in task that generates one and sends it to the manager, and there's no password to write back anywhere. One thing to test first, though: in my lab, using a TAP during Windows first-run setup pushed the user into Windows Hello for Business enrolment, even though the tenant wasn't set up for it. You'll want to know how that plays with your device build before you commit.
 
-**Set the password where the account is created.** If your provisioning creates the AD account, it can set the initial password there. AD stays the source of truth, and hash sync carries it to the cloud.
+If your provisioning creates the AD account, it can also set the starting password right there. AD stays in charge of the password, and hash sync carries it up to the cloud as usual.
 
-**Run the reset on-premises.** An Azure Automation runbook on a Hybrid Runbook Worker can call `Set-ADAccountPassword` directly. It works, but it's new infrastructure and a privileged on-premises account to manage.
+The heavier option is to do the reset on-premises, with an Azure Automation runbook running on a Hybrid Runbook Worker and calling `Set-ADAccountPassword`. It works, but it means new infrastructure and a privileged on-premises account to look after, which is hard to justify for one task.
 
-I recommended TAP. It removes the password from the joiner process instead of finding another way to move one around.
+I leaned towards TAP mostly because it takes the password out of the joiner process altogether, rather than finding a cleverer way to move one around.
 
-## One more trap
+## A trap while you're testing
 
-If the AD account has *password never expires* set, the force-change flag isn't written to AD, even on a reset that is supported. The [same writeback page](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback) says so. Clear it on your test users, or you'll get a false failure while proving any of the above.
+If the AD account has *password never expires* set, the force-change flag isn't written to AD, even on a reset that writeback does support. It's mentioned on the [same writeback page](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback), and one of my test users had it set. Clear it before you test, or you'll be chasing a failure that has nothing to do with any of the above.
 
-## Before you sign off a first-password design
+## The question to ask early
 
-Ask one question: **is the account's password owned by AD?** If it is, any design where automation sets that password through Graph won't work. Pick TAP, set the password at creation, or run the reset on-premises, and decide that before it reaches a signed-off design.
+If I were reviewing a first-password design now, the first thing I'd ask is whether AD owns the account's password. If it does, any plan that has automation setting that password through Graph is going to run into this. TAP, a password set at creation, or an on-premises reset will all work, and it's a lot easier to choose between them before anyone has signed anything.
