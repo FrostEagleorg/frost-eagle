@@ -18,7 +18,7 @@ export const AUTHOR = {
   // Add your profile URLs here. They become visible links and tell search
   // engines these profiles belong to the same person as this site.
   // e.g. 'https://www.linkedin.com/in/your-handle', 'https://github.com/your-handle'
-  sameAs: [] as string[],
+  sameAs: ['https://www.linkedin.com/in/davidgbuzue/'] as string[],
 };
 
 // The pipeline. Every article is filed under one stage.

@@ -15,6 +15,8 @@ const posts = defineCollection({
     stage: z.enum(stageSlugs),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // URL of the LinkedIn post for this article, once it exists
+    discussion: z.string().url().optional(),
   }),
 });
 

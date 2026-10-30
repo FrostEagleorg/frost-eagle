@@ -13,7 +13,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props as { post: Post };
 const { Content } = await render(post);
-const { title, description, pubDate, updatedDate, stage, tags } = post.data;
+const { title, description, pubDate, updatedDate, stage, tags, discussion } = post.data;
+const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
 const stageInfo = stageBySlug(stage);
 const isPipelineStage = STAGES.some((s) => s.slug === stage);
 const url = `${SITE.url}/articles/${post.id}/`;
@@ -53,6 +54,15 @@ const jsonLd = [
     <div class="prose">
       <Content />
     </div>
+
+    {(discussion || linkedin) && (
+      <p class="discuss">
+        Questions, or seen this play out differently?{' '}
+        {discussion
+          ? <a href={discussion}>Join the discussion on LinkedIn</a>
+          : <a href={linkedin} rel="me">Message me on LinkedIn</a>}.
+      </p>
+    )}
 
     <aside class="author-card" aria-label="About the author">
       <h2>{AUTHOR.name}</h2>

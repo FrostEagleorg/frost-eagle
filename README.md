@@ -15,10 +15,13 @@ Identity engineering notes by David Gbuzue. A static Astro site, hosted free on 
    stage: lifecycle   # hr-source | directory-sync | lifecycle | first-sign-in | access | downstream | delivery
    tags: ['Lifecycle Workflows']
    draft: false       # true keeps it off the live site
+   discussion: https://www.linkedin.com/feed/update/...   # optional: the LinkedIn post for this article
    ---
    ```
 
 3. Push to `main`. The site rebuilds and deploys in about a minute.
+
+After you share an article on LinkedIn, add that post's URL as `discussion` in the article's front matter, so the article links to the conversation. Until then, the article links to your LinkedIn profile.
 
 To preview locally: `npm install`, then `npm run dev`, then open http://localhost:4321.
 
