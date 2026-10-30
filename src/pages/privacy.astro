@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+<Base title="Privacy" description={`What ${SITE.name} collects about visitors: nothing beyond the hosting provider's standard logs.`}>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Privacy</h1>
+      <p>This site doesn't track you.</p>
+    </header>
+    <div class="prose">
+      <p>{SITE.name} has no analytics, no advertising, no cookies and no third-party scripts. Fonts are served from this site, not from a font service, so loading a page sends no requests anywhere else.</p>
+      <p>The site is hosted on GitHub Pages. GitHub logs the IP address of visitors for security purposes, as described in the <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#data-collection">GitHub Pages documentation</a> and the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>. I don't have access to those logs.</p>
+      <p>If you subscribe by RSS, your feed reader fetches the feed directly. I don't see who subscribes.</p>
+      <p>If this ever changes, this page will say so first.</p>
+      <p>Last updated 30 October 2026.</p>
+    </div>
+  </div>
+</Base>

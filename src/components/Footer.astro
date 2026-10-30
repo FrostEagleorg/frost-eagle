@@ -11,6 +11,7 @@ function labelFor(url: string) {
     <p>{SITE.name} is written by <a href="/about/">{AUTHOR.name}</a>, {AUTHOR.jobTitle.toLowerCase()} in {AUTHOR.location.split(',')[0]}. Client details in these articles are changed or removed.</p>
     <ul>
       <li><a href="/rss.xml">RSS</a></li>
+      <li><a href="/privacy/">Privacy</a></li>
       {AUTHOR.sameAs.map((url) => <li><a href={url} rel="me">{labelFor(url)}</a></li>)}
     </ul>
   </div>
