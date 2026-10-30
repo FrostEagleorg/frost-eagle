@@ -66,18 +66,61 @@ const jsonLd = [
     <Journey steps={steps} />
 
     <div class="prose">
-      <h2>Getting HR data into Entra ID</h2>
-      <p>Entra ID has built-in connectors for a few HR systems. Many payroll systems aren't on that list, and even when there is a connector, payroll data is rarely clean enough to decide access on its own.</p>
-      <p>Where that's the case, I bring in an HR integration platform that I've used in production, licensed through a partner. It sits between your HR system and Entra ID, and it handles the parts that are hardest to build and maintain yourself:</p>
-      <ul>
-        <li>connecting to HR and payroll systems that Entra ID has no connector for</li>
-        <li>turning payroll data into something access can be based on, like job titles grouped into roles and location codes matched to real sites</li>
-        <li>recognising the awkward cases, such as a starter entered after their first day or a termination entered late, so the right workflows still run</li>
-        <li>treating a missing record as "do nothing" rather than "this person has left", so a failed export can't switch off half the company</li>
-        <li>creating a separate admin account from the same HR record for people who need one</li>
-        <li>keeping a full history of every change, for when audit asks</li>
-      </ul>
-      <p>It's optional. If your HR system already connects to Entra ID cleanly, we won't need it.</p>
+      <h2>The messy middle</h2>
+      <p>Microsoft gives you good building blocks at each end. Entra ID can take HR data in through <a href="https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-concepts">API-driven inbound provisioning</a>, and Entra ID Governance does a lot with clean attributes once they arrive. What sits in between, getting the data out of payroll, cleaning it, and keeping it consistent all the way to Active Directory and back, is left to you. That middle stretch is where most of the trouble in these projects comes from.</p>
+      <p>Where it makes sense, I bring in an HR integration platform that I've used in production, licensed through a partner. It sits between your HR system and Entra ID and holds that middle together. This is how the two compare:</p>
+
+      <div class="compare">
+        <table>
+          <thead>
+            <tr><th scope="col">The job</th><th scope="col">With Microsoft's tools alone</th><th scope="col">With the integration layer</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Getting data out of payroll</th>
+              <td>Microsoft has built-in connectors for <a href="https://learn.microsoft.com/en-us/entra/identity/app-provisioning/plan-cloud-hr-provision">Workday and SuccessFactors</a>. For anything else you get an API, and someone has to write, run and support the code that reads payroll and sends it.</td>
+              <td>Connectors to a range of HR and payroll systems, built and maintained for you.</td>
+            </tr>
+            <tr>
+              <th scope="row">Somewhere for the HR data to live</th>
+              <td>Entra ID keeps the attributes you map, not the HR record behind them. Provisioning logs are <a href="https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-analyze-provisioning-logs">kept for 30 days</a> unless you export them.</td>
+              <td>One place where every person's HR data sits, cleaned and current, with a history of every change for audit.</td>
+            </tr>
+            <tr>
+              <th scope="row">Cleaning the data</th>
+              <td>Attribute mappings can reformat values, but there's no lookup table. Turning location codes into site names means hard-coding every code into an expression and editing it whenever a site changes.</td>
+              <td>Rules and lookup tables you can maintain, for grouping job titles into roles and matching codes to real sites and countries.</td>
+            </tr>
+            <tr>
+              <th scope="row">Sending complete records</th>
+              <td>Microsoft asks for the <a href="https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-concepts">complete user record in every upload</a>, and warns that a partial one can clear existing values.</td>
+              <td>The full, current record is always there to send.</td>
+            </tr>
+            <tr>
+              <th scope="row">Awkward timing</th>
+              <td>Lifecycle Workflows run on dates. A starter entered after their first day, or a termination entered late, can miss the scheduled workflow, so you end up designing catch-up workflows around it.</td>
+              <td>Late hires, late terminations and rehires are recognised and labelled, so the right workflows can pick them up.</td>
+            </tr>
+            <tr>
+              <th scope="row">A record that goes missing</th>
+              <td>Whatever script you build decides what an absent record means, and getting that wrong can disable the wrong people.</td>
+              <td>A missing record means "do nothing", never "this person has left". Leavers come from an end date.</td>
+            </tr>
+            <tr>
+              <th scope="row">Hybrid Active Directory</th>
+              <td>Values get transformed in up to three places: the provisioning mappings, Active Directory, and the sync rules back to Entra ID. When something's wrong, you check all three.</td>
+              <td>Final values are worked out once, before provisioning, so everything after that is a straight copy.</td>
+            </tr>
+            <tr>
+              <th scope="row">Admin accounts</th>
+              <td>Usually created and tidied up by hand, separately from the person's normal account.</td>
+              <td>Created from the same HR record, so they follow the person and are switched off when they leave.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>It's optional. If your HR system already connects to Entra ID cleanly and your data is in good shape, we won't need it.</p>
 
       <h2>Recent work</h2>
       <p>Projects I've led or designed, with the names left out:</p>
@@ -93,3 +136,47 @@ const jsonLd = [
     </div>
   </div>
 </Base>
+
+<style>
+  .compare {
+    max-width: 58rem;
+    margin-top: 1.75rem;
+    overflow-x: auto;
+  }
+
+  .compare table {
+    width: 100%;
+    min-width: 40rem;
+    border-collapse: collapse;
+    font-family: var(--sans);
+    font-size: 0.97rem;
+    line-height: 1.45;
+  }
+
+  .compare th,
+  .compare td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.85rem 1rem 0.85rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .compare thead th {
+    border-bottom: 2px solid var(--ink);
+    font-weight: 650;
+  }
+
+  .compare tbody th {
+    font-weight: 650;
+    width: 22%;
+  }
+
+  .compare td:last-child {
+    color: var(--ink);
+  }
+
+  .compare td:nth-child(2) {
+    color: var(--slate);
+    width: 41%;
+  }
+</style>
