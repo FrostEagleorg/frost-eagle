@@ -11,8 +11,6 @@ export const SITE = {
 
 export const AUTHOR = {
   name: 'Dubem Gbuzue',
-  // Other names people may search for. Shown to search engines only.
-  alternateNames: ['David Gbuzue'],
   jobTitle: 'Identity and security consultant',
   profile: '/about/dubem-gbuzue/',
   location: 'Sydney, Australia',
