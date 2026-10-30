@@ -29,13 +29,13 @@ export const TEAM = [
     name: 'Lauren Battaglia',
     role: 'COO',
     photo: '/images/lauren-battaglia.jpg',
-    body: 'Navigates the complexities of client delivery environments, so projects run smoothly on your side as well as ours.',
+    body: "Lauren leads Frost Eagle's operations and delivery, navigating the complexities of client environments so projects run smoothly from the first conversation to handover. She keeps scope, people and timelines aligned, making sure the technical work fits how each business actually operates.",
   },
   {
     name: 'David Gbuzue',
     role: 'CTO',
     photo: '/images/david-gbuzue.jpg',
-    body: 'Designs and builds the identity side: HR integration, Microsoft Entra ID Governance and privileged access.',
+    body: 'David is an identity and security architect focused on making access simple, automatic and easy to defend. Specialising in Microsoft Entra ID Governance, HR-driven provisioning and privileged access, he designs and builds the systems that turn HR and payroll data into the right access, cutting manual effort and audit risk for the businesses he works with.',
   },
 ];
 
