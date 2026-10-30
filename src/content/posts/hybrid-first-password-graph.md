@@ -1,10 +1,10 @@
 ---
 title: "Why your Logic App can't set a hybrid user's first password"
 description: 'Graph will happily change a synced user''s password from automation. The change just never reaches Active Directory, and the new starter is left with a password that doesn''t work.'
-pubDate: 2026-11-13
+pubDate: 2026-10-30
 stage: first-sign-in
 tags: ['Password writeback', 'Microsoft Graph', 'Lifecycle Workflows', 'Hybrid identity']
-draft: true
+draft: false
 ---
 
 On paper the design was simple, and I still think it was a reasonable one. Three days before someone started, a Lifecycle Workflow would call a Logic App. The Logic App would generate a temporary password, set it on the user through Microsoft Graph, and email it to their manager. On their first morning the new starter would sign in and be asked to pick a password of their own.
