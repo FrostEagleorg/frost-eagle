@@ -125,7 +125,7 @@ const jsonLd = [
 
     <section aria-labelledby="how">
       <h2 id="how">How we run a project</h2>
-      <p class="section-lead">Four stages, and you can stop after any of them. Open a stage for the detail.</p>
+      <p class="section-lead">Four stages, each at a fixed price agreed before it starts, and you can stop after any of them. Open a stage for the detail.</p>
       <div class="stages">
         {stages.map((s, i) => (
           <details class="stage">
@@ -144,6 +144,10 @@ const jsonLd = [
     <section aria-labelledby="work">
       <h2 id="work">Recent work</h2>
       <p class="section-lead">With the names left out. The <a href="/articles/">articles</a> on this site come out of the same work.</p>
+      <figure class="quote">
+        <blockquote><p>Exceptional and impeccable work from start to finish.</p></blockquote>
+        <figcaption>Head of IT, industrial business in Australia and New Zealand</figcaption>
+      </figure>
       <div class="work-grid">
         {work.map((w) => (
           <div class="work">
@@ -446,6 +450,34 @@ const jsonLd = [
     margin: 0.9rem 0 0;
     font-size: 1rem;
     line-height: 1.6;
+  }
+
+  /* testimonial */
+  .quote {
+    margin: 2rem 0 1.5rem;
+    max-width: 44rem;
+    border-top: 2px solid var(--ink);
+    padding-top: 1.25rem;
+  }
+
+  .quote blockquote {
+    margin: 0;
+  }
+
+  .quote blockquote p {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1.45rem, 2.6vw, 1.9rem);
+    line-height: 1.35;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .quote figcaption {
+    margin-top: 0.75rem;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--slate);
   }
 
   /* recent work */

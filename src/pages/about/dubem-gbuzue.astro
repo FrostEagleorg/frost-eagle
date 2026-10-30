@@ -13,7 +13,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
     url: `${SITE.url}${AUTHOR.profile}`,
-    name: `${AUTHOR.name}, ${AUTHOR.jobTitle.toLowerCase()}`,
+    name: `${AUTHOR.name}, ${AUTHOR.jobTitle}`,
     mainEntity: personSchema(),
     hasPart: posts.map((p) => ({
       '@type': 'BlogPosting',
@@ -25,13 +25,13 @@ const jsonLd = [
   },
 ];
 ---
-<Base title={`${AUTHOR.name}, ${AUTHOR.jobTitle.toLowerCase()}`} description={`${AUTHOR.name} is an identity and security consultant in Sydney and CTO at ${SITE.name}, specialising in Microsoft Entra ID Governance, HR-driven provisioning and privileged access.`} jsonLd={jsonLd} image={AUTHOR.photo}>
+<Base title={`${AUTHOR.name}, ${AUTHOR.jobTitle}`} description={`${AUTHOR.name} is Principal Identity Architect at ${SITE.name} in Sydney, specialising in Microsoft Entra ID Governance, HR-driven provisioning and privileged access.`} jsonLd={jsonLd} image={AUTHOR.photo}>
   <div class="wrap">
     <header class="page-head profile-head">
       <img src={AUTHOR.photo} alt={`Portrait of ${AUTHOR.name}`} width="640" height="640" />
       <div>
         <h1>{AUTHOR.name}</h1>
-        <p>Identity and security consultant, and CTO at <a href="/about/">{SITE.name}</a>. Based in {AUTHOR.location}.</p>
+        <p>Principal Identity Architect at <a href="/about/">{SITE.name}</a>. Based in {AUTHOR.location}.</p>
       </div>
     </header>
 

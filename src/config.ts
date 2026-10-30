@@ -11,13 +11,14 @@ export const SITE = {
 
 export const AUTHOR = {
   name: 'Dubem Gbuzue',
-  jobTitle: 'Identity and security consultant',
+  jobTitle: 'Principal Identity Architect',
   profile: '/about/dubem-gbuzue/',
   location: 'Sydney, Australia',
   email: 'hello@frosteagle.com',
+  abn: '99 675 106 493',
   photo: '/images/dubem-gbuzue.jpg',
   shortBio:
-    'Identity and security consultant in Sydney, and CTO at Frost Eagle. I help organisations bring order to who has access to what, using Microsoft Entra ID Governance, HR-driven provisioning and privileged access.',
+    'Principal Identity Architect at Frost Eagle, based in Sydney. I help organisations bring order to who has access to what, using Microsoft Entra ID Governance, HR-driven provisioning and privileged access.',
   // Add your profile URLs here. They become visible links and tell search
   // engines these profiles belong to the same person as this site.
   // e.g. 'https://www.linkedin.com/in/your-handle', 'https://github.com/your-handle'
@@ -37,9 +38,9 @@ export const TEAM = [
     name: 'Dubem Gbuzue',
     slug: 'dubem-gbuzue',
     profile: '/about/dubem-gbuzue/',
-    role: 'CTO',
+    role: 'Principal Identity Architect',
     photo: '/images/dubem-gbuzue.jpg',
-    body: "Dubem is an identity and security consultant who helps organisations bring order to who has access to what, and why. He has led the technical delivery of identity governance and privileged access work across manufacturing, financial services, higher education and healthcare in Australia and New Zealand, working with IT and business leaders to turn HR and payroll data into access that is automatic, auditable and easy to defend. He specialises in Microsoft Entra ID Governance, HR-driven provisioning, hybrid Active Directory and privileged access.",
+    body: "Dubem is a principal identity architect who helps organisations bring order to who has access to what, and why. He has led the technical delivery of identity governance and privileged access work across manufacturing, financial services, higher education and healthcare in Australia and New Zealand, working with IT and business leaders to turn HR and payroll data into access that is automatic, auditable and easy to defend. He specialises in Microsoft Entra ID Governance, HR-driven provisioning, hybrid Active Directory and privileged access.",
   },
 ];
 

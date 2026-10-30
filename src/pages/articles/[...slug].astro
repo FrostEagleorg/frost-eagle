@@ -44,7 +44,7 @@ const jsonLd = [
       <h1>{title}</h1>
       <p class="lead">{description}</p>
       <div class="byline">
-        <p>By <a class="author" href={AUTHOR.profile} rel="author">{AUTHOR.name}</a>, {AUTHOR.jobTitle.toLowerCase()}, {AUTHOR.location.split(',')[0]}</p>
+        <p>By <a class="author" href={AUTHOR.profile} rel="author">{AUTHOR.name}</a>, {AUTHOR.jobTitle}, {AUTHOR.location.split(',')[0]}</p>
         <p>
           <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>{updatedDate && <>, updated <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time></>}, {readingMinutes(post.body)} min read, in <a href={`/stages/${stage}/`}>{stageInfo?.name}</a>
         </p>
@@ -67,7 +67,7 @@ const jsonLd = [
 
     <aside class="author-card" aria-label="About the author">
       <h2><a href={AUTHOR.profile} rel="author">{AUTHOR.name}</a></h2>
-      <p>{AUTHOR.name} is an identity and security consultant in Sydney and CTO at {SITE.name}. Read <a href={AUTHOR.profile}>his profile and other articles</a>, or see <a href="/consulting/">how Frost Eagle works with clients</a>.</p>
+      <p>{AUTHOR.name} is Principal Identity Architect at {SITE.name}, based in Sydney. Read <a href={AUTHOR.profile}>his profile and other articles</a>, or see <a href="/consulting/">how Frost Eagle works with clients</a>.</p>
     </aside>
   </article>
 </Base>
