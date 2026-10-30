@@ -1,67 +1,131 @@
 ---
 import Base from '../layouts/Base.astro';
-import { AUTHOR, SITE } from '../config';
+import { AUTHOR, SITE, TEAM } from '../config';
 import { personSchema } from '../lib/schema';
+
+const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
+    '@type': 'AboutPage',
     url: `${SITE.url}/about/`,
-    name: `${AUTHOR.name}, ${AUTHOR.jobTitle.toLowerCase()}`,
-    mainEntity: personSchema(),
+    name: `About ${SITE.name}`,
+    mainEntity: {
+      '@type': 'Organization',
+      '@id': `${SITE.url}/#org`,
+      name: SITE.name,
+      url: `${SITE.url}/`,
+      email: AUTHOR.email,
+      employee: [
+        personSchema(),
+        { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'COO', image: `${SITE.url}/images/lauren-battaglia.jpg` },
+      ],
+    },
   },
 ];
-function labelFor(url: string) {
-  if (url.includes('linkedin')) return 'LinkedIn';
-  if (url.includes('github')) return 'GitHub';
-  return new URL(url).hostname.replace('www.', '');
-}
 ---
-<Base title={`${AUTHOR.name}, ${AUTHOR.jobTitle.toLowerCase()}`} description={AUTHOR.shortBio} jsonLd={jsonLd} image={AUTHOR.photo}>
+<Base title="About" description="Frost Eagle is a small identity governance consultancy in Sydney, run by Lauren Battaglia and David Gbuzue. We automate who gets access, straight from your HR or payroll system." jsonLd={jsonLd}>
   <div class="wrap">
-    <header class="page-head about-head">
-      <img src={AUTHOR.photo} alt={`Portrait of ${AUTHOR.name}`} width="640" height="640" />
-      <div>
-        <h1>{AUTHOR.name}</h1>
-        <p>{AUTHOR.jobTitle} in {AUTHOR.location}. CTO of {SITE.name}, a small consultancy that helps businesses automate identity and access.</p>
-      </div>
+    <header class="page-head">
+      <h1>About {SITE.name}</h1>
+      <p>{SITE.name} is a small identity governance consultancy in Sydney. We help small and medium businesses in Australia and New Zealand automate who gets access, straight from their HR or payroll system, using Microsoft Entra ID Governance.</p>
     </header>
+
     <div class="prose">
-      <p>I lead the technical delivery of Microsoft Entra ID Governance projects: connecting HR and payroll systems to Active Directory and Entra ID, automating joiners, movers and leavers with Lifecycle Workflows, and turning HR attributes into access with entitlement management. Before that I delivered privileged access management with BeyondTrust.</p>
-      <p>Most of that work happens in hybrid environments, where the documentation stops well short of what production needs. The {SITE.name} articles are where I write up what I find there: how each stage of the pipeline really behaves, the faults I've traced, and the designs that held up.</p>
-      <p>Every example is rebuilt in my own lab tenant. Client names and details are removed or changed.</p>
-      <p>Through {SITE.name}, we work with small and medium businesses that want their HR system to drive access automatically. <a href="/consulting/">Here's how that works</a>.</p>
+      <p>We're small on purpose. The people you meet in the first conversation are the people who design and deliver your project, and we write up what we learn along the way in the <a href="/articles/">articles</a> on this site. Every example in them is rebuilt in our own lab, with client names and details removed or changed.</p>
+    </div>
+
+    <section class="team" aria-labelledby="team">
+      <h2 id="team">The team</h2>
+      {TEAM.map((t) => (
+        <article class="member" id={t.slug}>
+          <img src={t.photo} alt={`Portrait of ${t.name}`} width="640" height="640" />
+          <div>
+            <h3>{t.profile ? <a href={t.profile}>{t.name}</a> : t.name}</h3>
+            <p class="role">{t.role}</p>
+            <p>{t.body}</p>
+            {t.profile && <p class="more"><a href={t.profile}>Read {t.name.split(' ')[0]}'s profile and articles</a></p>}
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <div class="prose">
       <h2>Get in touch</h2>
-      <p>Email me at <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>{AUTHOR.sameAs.length > 0 && <>, or find me on {AUTHOR.sameAs.map((url, i) => <>{i > 0 && ' and '}<a href={url} rel="me">{labelFor(url)}</a></>)}</>}.</p>
+      <p>Email us at <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>{linkedin && <>, or find David <a href={linkedin} rel="me">on LinkedIn</a></>}. If you're weighing up a project, the <a href="/consulting/">consulting page</a> explains how we work.</p>
     </div>
   </div>
 </Base>
 
 <style>
-  .about-head {
-    display: grid;
-    grid-template-columns: 9.5rem 1fr;
-    gap: 2rem;
-    align-items: center;
+  .team {
+    margin-top: 3.5rem;
+    max-width: 52rem;
   }
 
-  .about-head img {
-    width: 9.5rem;
-    height: 9.5rem;
+  .team h2 {
+    font-size: 1.65rem;
+    font-weight: 700;
+  }
+
+  .member {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 2rem;
+    align-items: start;
+    border-top: 2px solid var(--ink);
+    padding: 1.75rem 0 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .member img {
+    width: 9rem;
+    height: 9rem;
     border-radius: 50%;
     object-fit: cover;
   }
 
-  @media (max-width: 560px) {
-    .about-head {
+  .member h3 {
+    font-size: 1.45rem;
+    font-weight: 700;
+  }
+
+  .member h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .member h3 a:hover {
+    color: var(--glacier);
+    text-decoration: underline;
+  }
+
+  .member .role {
+    margin: 0.2rem 0 0;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--glacier);
+  }
+
+  .member p {
+    margin: 0.75rem 0 0;
+  }
+
+  .member .more {
+    font-family: var(--sans);
+    font-size: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .member {
       grid-template-columns: 1fr;
-      gap: 1.25rem;
+      gap: 1rem;
     }
 
-    .about-head img {
-      width: 7.5rem;
-      height: 7.5rem;
+    .member img {
+      width: 7rem;
+      height: 7rem;
     }
   }
 </style>

@@ -453,6 +453,16 @@ h4 {
   font-size: 1.15rem;
 }
 
+.author-card h2 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.author-card h2 a:hover {
+  color: var(--glacier);
+  text-decoration: underline;
+}
+
 .author-card p {
   margin: 0.5rem 0 0;
   color: var(--slate);

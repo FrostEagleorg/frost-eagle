@@ -3,10 +3,11 @@ import { AUTHOR, SITE } from '../config';
 export function personSchema() {
   return {
     '@type': 'Person',
-    '@id': `${SITE.url}/about/#person`,
+    '@id': `${SITE.url}${AUTHOR.profile}#person`,
     name: AUTHOR.name,
     jobTitle: AUTHOR.jobTitle,
-    url: `${SITE.url}/about/`,
+    url: `${SITE.url}${AUTHOR.profile}`,
+    worksFor: { '@type': 'Organization', '@id': `${SITE.url}/#org`, name: SITE.name },
     image: `${SITE.url}${AUTHOR.photo}`,
     email: `mailto:${AUTHOR.email}`,
     homeLocation: { '@type': 'Place', name: AUTHOR.location },

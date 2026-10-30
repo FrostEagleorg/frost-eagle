@@ -163,7 +163,7 @@ const jsonLd = [
             <div>
               <h3>{t.name}</h3>
               <p class="role">{t.role}</p>
-              <p>{t.body}</p>
+              <p><a href={`/about/#${t.slug}`}>About {t.name.split(' ')[0]}</a></p>
             </div>
           </div>
         ))}
@@ -476,7 +476,7 @@ const jsonLd = [
     display: grid;
     grid-template-columns: 6rem 1fr;
     gap: 1.25rem;
-    align-items: start;
+    align-items: center;
   }
 
   .person img {

@@ -1,0 +1,78 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { AUTHOR, SITE } from '../../config';
+import { personSchema } from '../../lib/schema';
+import { getPosts, postUrl } from '../../lib/posts';
+
+const posts = await getPosts();
+const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    url: `${SITE.url}${AUTHOR.profile}`,
+    name: `${AUTHOR.name}, ${AUTHOR.jobTitle.toLowerCase()}`,
+    mainEntity: personSchema(),
+    hasPart: posts.map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.data.title,
+      url: `${SITE.url}${postUrl(p)}`,
+      datePublished: p.data.pubDate.toISOString(),
+      author: { '@id': `${SITE.url}${AUTHOR.profile}#person` },
+    })),
+  },
+];
+---
+<Base title={`${AUTHOR.name}, ${AUTHOR.jobTitle.toLowerCase()}`} description={`${AUTHOR.name} is an identity and security consultant in Sydney and CTO at ${SITE.name}, specialising in Microsoft Entra ID Governance, HR-driven provisioning and privileged access.`} jsonLd={jsonLd} image={AUTHOR.photo}>
+  <div class="wrap">
+    <header class="page-head profile-head">
+      <img src={AUTHOR.photo} alt={`Portrait of ${AUTHOR.name}`} width="640" height="640" />
+      <div>
+        <h1>{AUTHOR.name}</h1>
+        <p>Identity and security consultant, and CTO at <a href="/about/">{SITE.name}</a>. Based in {AUTHOR.location}.</p>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>I help organisations bring order to who has access to what, and why. I've led the technical delivery of identity governance and privileged access work across manufacturing, financial services, higher education and healthcare in Australia and New Zealand, working with IT and business leaders to turn HR and payroll data into access that is automatic, auditable and easy to defend.</p>
+      <p>Most of that work happens in hybrid environments, where Active Directory is still in the picture and the documentation stops well short of what production needs. My focus is on the decisions that matter to the business: what should happen automatically, who approves what, what happens when the data is wrong, and how to show an auditor the answer. Underneath that sit Microsoft Entra ID Governance, HR-driven provisioning, hybrid Active Directory and privileged access with BeyondTrust.</p>
+      <p>I write up what I find in the articles below, rebuilding every example in my own lab with client details removed. If you'd like help with something similar, see <a href="/consulting/">how Frost Eagle works</a>, email <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>{linkedin && <>, or message me <a href={linkedin} rel="me">on LinkedIn</a></>}.</p>
+      <h2>Articles by {AUTHOR.name}</h2>
+    </div>
+    <PostList posts={posts} />
+  </div>
+</Base>
+
+<style>
+  .profile-head {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .profile-head img {
+    width: 9.5rem;
+    height: 9.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .prose + :global(.post-list) {
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 560px) {
+    .profile-head {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .profile-head img {
+      width: 7.5rem;
+      height: 7.5rem;
+    }
+  }
+</style>

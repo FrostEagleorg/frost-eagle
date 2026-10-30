@@ -28,7 +28,7 @@ const jsonLd = [
     url: `${SITE.url}/`,
     logo: `${SITE.url}/favicon.svg`,
     email: AUTHOR.email,
-    employee: { '@id': `${SITE.url}/about/#person` },
+    employee: { '@id': `${SITE.url}${AUTHOR.profile}#person` },
   },
   { '@context': 'https://schema.org', ...personSchema() },
 ];
