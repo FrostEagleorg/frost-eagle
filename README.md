@@ -1,6 +1,6 @@
 # Frost Eagle
 
-Identity engineering notes by David Gbuzue. A static Astro site, hosted free on GitHub Pages at frosteagle.com.
+Frost Eagle: identity governance consultancy and articles by Dubem Gbuzue. A static Astro site, hosted free on GitHub Pages at frosteagle.com.
 
 ## Write an article
 

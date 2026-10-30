@@ -5,6 +5,7 @@ export function personSchema() {
     '@type': 'Person',
     '@id': `${SITE.url}${AUTHOR.profile}#person`,
     name: AUTHOR.name,
+    alternateName: AUTHOR.alternateNames,
     jobTitle: AUTHOR.jobTitle,
     url: `${SITE.url}${AUTHOR.profile}`,
     worksFor: { '@type': 'Organization', '@id': `${SITE.url}/#org`, name: SITE.name },

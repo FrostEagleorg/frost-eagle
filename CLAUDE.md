@@ -1,10 +1,10 @@
 # Frost Eagle: instructions for writing and editing articles
 
-Frost Eagle is David Gbuzue's blog on Microsoft Entra ID Governance and HR-driven provisioning. Articles live in `src/content/posts/`. The README covers front matter and publishing.
+Frost Eagle is Dubem Gbuzue's blog on Microsoft Entra ID Governance and HR-driven provisioning. Articles live in `src/content/posts/`. The README covers front matter and publishing.
 
 ## Voice
 
-Write as David: a practitioner telling another engineer what happened, in the first person, plainly and with some warmth. Measured and precise, never salesy or dramatic. Every article must read as if a person wrote it in one sitting, not as if it came from a template.
+Write as Dubem: a practitioner telling another engineer what happened, in the first person, plainly and with some warmth. Measured and precise, never salesy or dramatic. Every article must read as if a person wrote it in one sitting, not as if it came from a template.
 
 ## Patterns to remove (they make writing read as AI-generated)
 
@@ -29,6 +29,6 @@ Write as David: a practitioner telling another engineer what happened, in the fi
 
 ## Facts
 
-- Never invent details: durations, counts, quotes, outcomes. If it isn't in the source material, leave it out or ask David.
+- Never invent details: durations, counts, quotes, outcomes. If it isn't in the source material, leave it out or ask Dubem.
 - Never name clients, colleagues' employers, tenants, app IDs, subscriptions or resource names. Rebuild examples in the lab tenant.
 - Check every Microsoft behaviour claim against current Microsoft Learn before publishing, and link the page.
