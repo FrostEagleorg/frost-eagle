@@ -26,16 +26,16 @@ export const AUTHOR = {
 // The people behind Frost Eagle, shown on the Consulting page.
 export const TEAM = [
   {
-    name: 'David Gbuzue',
-    role: 'CTO',
-    photo: '/images/david-gbuzue.jpg',
-    body: 'Designs and builds the identity side: HR integration, Microsoft Entra ID Governance and privileged access.',
-  },
-  {
     name: 'Lauren Battaglia',
     role: 'COO',
     photo: '/images/lauren-battaglia.jpg',
     body: 'Navigates the complexities of client delivery environments, so projects run smoothly on your side as well as ours.',
+  },
+  {
+    name: 'David Gbuzue',
+    role: 'CTO',
+    photo: '/images/david-gbuzue.jpg',
+    body: 'Designs and builds the identity side: HR integration, Microsoft Entra ID Governance and privileged access.',
   },
 ];
 
