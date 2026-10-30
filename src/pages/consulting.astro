@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { AUTHOR, SITE } from '../config';
+import { AUTHOR, SITE, TEAM } from '../config';
 import { personSchema } from '../lib/schema';
 
 const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
@@ -65,7 +65,7 @@ const jsonLd = [
     url: `${SITE.url}/consulting/`,
     email: AUTHOR.email,
     areaServed: ['Australia', 'New Zealand'],
-    founder: personSchema(),
+    founder: [personSchema(), { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'Co-founder and COO' }],
     description:
       'Automated onboarding, role changes and offboarding for small and medium businesses, driven by HR data, using Microsoft Entra ID Governance.',
   },
@@ -149,6 +149,19 @@ const jsonLd = [
           <div class="work">
             <h3>{w.who}</h3>
             <p>{w.what}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="team">
+      <h2 id="team">Who you'll work with</h2>
+      <div class="team-grid">
+        {TEAM.map((t) => (
+          <div class="person">
+            <h3>{t.name}</h3>
+            <p class="role">{t.role}</p>
+            <p>{t.body}</p>
           </div>
         ))}
       </div>
@@ -445,6 +458,33 @@ const jsonLd = [
     padding-top: 1rem;
   }
 
+  /* team */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 3rem;
+    margin-top: 2rem;
+    max-width: 52rem;
+  }
+
+  .person {
+    border-top: 2px solid var(--ink);
+    padding-top: 1rem;
+  }
+
+  .person .role {
+    margin: 0.2rem 0 0;
+    font-family: var(--sans);
+    color: var(--glacier);
+    font-weight: 600;
+  }
+
+  .person p:last-child {
+    margin: 0.6rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
   /* contact band */
   .contact {
     background: var(--ink);
@@ -515,7 +555,8 @@ const jsonLd = [
       gap: 1.5rem;
     }
 
-    .work-grid {
+    .work-grid,
+    .team-grid {
       grid-template-columns: 1fr;
     }
   }

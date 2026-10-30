@@ -23,6 +23,20 @@ export const AUTHOR = {
   sameAs: ['https://www.linkedin.com/in/davidgbuzue/'] as string[],
 };
 
+// The people behind Frost Eagle, shown on the Consulting page.
+export const TEAM = [
+  {
+    name: 'David Gbuzue',
+    role: 'Co-founder and CTO',
+    body: 'Designs and builds the identity side: HR integration, Microsoft Entra ID Governance and privileged access.',
+  },
+  {
+    name: 'Lauren Battaglia',
+    role: 'Co-founder and COO',
+    body: 'Navigates the complexities of client delivery environments, so projects run smoothly on your side as well as ours.',
+  },
+];
+
 // The pipeline. Every article is filed under one stage.
 // Order matters: it is the order a person's record travels in.
 export const STAGES = [
