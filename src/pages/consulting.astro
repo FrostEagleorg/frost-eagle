@@ -21,7 +21,7 @@ const lifecycle = [
 ];
 
 const capabilities = [
-  { title: 'Connects to your HR system', body: 'Including HR and payroll systems that Entra ID has no built-in connector for.' },
+  { title: 'Connects to your HR or payroll system', body: 'Including HR and payroll systems that Entra ID has no built-in connector for.' },
   { title: 'One clean copy of your people data', body: 'Kept current, with a history of every change for when audit asks.' },
   { title: 'Turns payroll data into roles and sites', body: 'Job titles grouped into roles, location codes matched to real places.' },
   { title: 'Handles the awkward cases', body: 'Late starters, late terminations and rehires still get the right treatment.' },
@@ -31,7 +31,7 @@ const stages = [
   {
     name: 'Readiness review',
     outcome: 'A short report, a recommended design and a fixed quote.',
-    body: "We look at the four things that decide how big the job is: your HR data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most of the risk sits in the HR data, so that's where we spend the most time. You can stop here and keep the report.",
+    body: "We look at the four things that decide how big the job is: your HR and payroll data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most of the risk sits in that data, so that's where we spend the most time. You can stop here and keep the report.",
   },
   {
     name: 'Design',
@@ -41,7 +41,7 @@ const stages = [
   {
     name: 'Build and switch on',
     outcome: 'Joiners, movers and leavers running automatically.',
-    body: "We build it alongside your current process and test it against your real HR data, not tidy samples. Nothing changes for your people until it's ready, and then we switch it on a group at a time so any surprises stay small.",
+    body: "We build it alongside your current process and test it against your real HR and payroll data, not tidy samples. Nothing changes for your people until it's ready, and then we switch it on a group at a time so any surprises stay small.",
   },
   {
     name: 'Handover',
@@ -67,15 +67,15 @@ const jsonLd = [
     areaServed: ['Australia', 'New Zealand'],
     employee: [personSchema(), { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'COO' }],
     description:
-      'Automated onboarding, role changes and offboarding for small and medium businesses, driven by HR data, using Microsoft Entra ID Governance.',
+      'Automated onboarding, role changes and offboarding for small and medium businesses, driven by HR and payroll data, using Microsoft Entra ID Governance.',
   },
 ];
 ---
-<Base title="Consulting" description="We help small and medium businesses in Australia and New Zealand let their HR system run access: onboarding, role changes and offboarding, automated with Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
+<Base title="Consulting" description="We help small and medium businesses in Australia and New Zealand let their HR or payroll system run access: onboarding, role changes and offboarding, automated with Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
   <div class="wrap consult">
     <header class="hero-c">
-      <h1>Let your HR system run access.</h1>
-      <p>Frost Eagle is a small identity team helping small and medium businesses in Australia and New Zealand set people up, move them and switch them off automatically, straight from HR. It runs on Microsoft Entra ID Governance, an add-on to the Microsoft licences many businesses already have.</p>
+      <h1>Let your HR or payroll system run access.</h1>
+      <p>Frost Eagle is a small identity team helping small and medium businesses in Australia and New Zealand set people up, move them and switch them off automatically, straight from their HR or payroll system. It runs on Microsoft Entra ID Governance, an add-on to the Microsoft licences many businesses already have.</p>
       <p class="hero-actions"><a class="button" href={`mailto:${AUTHOR.email}`}>Email {AUTHOR.email}</a></p>
     </header>
 
@@ -95,7 +95,7 @@ const jsonLd = [
 
     <section aria-labelledby="changes">
       <h2 id="changes">What changes</h2>
-      <p class="section-lead">Once HR data drives access, this is a person's time with you, and none of it needs anyone to remember to do it.</p>
+      <p class="section-lead">Once your HR or payroll data drives access, this is a person's time with you, and none of it needs anyone to remember to do it.</p>
       <ol class="timeline">
         {lifecycle.map((s) => (
           <li>
@@ -109,9 +109,9 @@ const jsonLd = [
 
     <section aria-labelledby="hrdata" class="split">
       <div>
-        <h2 id="hrdata">Getting your HR data in</h2>
-        <p>Everything above starts with your people data. Where your HR system doesn't connect straight to Entra ID, or the data needs shaping first, we bring in an HR integration platform we've run in production, licensed through a partner.</p>
-        <p>It sits between HR and Entra ID and hands over a complete, consistent record every time. If your HR system already connects cleanly, you won't need it.</p>
+        <h2 id="hrdata">Getting your HR and payroll data in</h2>
+        <p>Everything above starts with your people data. Where your HR or payroll system doesn't connect straight to Entra ID, or the data needs shaping first, we bring in an HR integration platform we've run in production, licensed through a partner.</p>
+        <p>It sits between your HR or payroll system and Entra ID and hands over a complete, consistent record every time. If your system already connects cleanly, you won't need it.</p>
       </div>
       <dl class="caps">
         {capabilities.map((c) => (
@@ -225,7 +225,7 @@ const jsonLd = [
     font-weight: 760;
     letter-spacing: -0.035em;
     line-height: 1.03;
-    max-width: 14ch;
+    max-width: 17ch;
   }
 
   .hero-c p {
