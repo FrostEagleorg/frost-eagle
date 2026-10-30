@@ -1,0 +1,62 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Trace from '../../components/Trace.astro';
+import { AUTHOR, SITE, STAGES, stageBySlug } from '../../config';
+import { formatDate, getPosts, readingMinutes, type Post } from '../../lib/posts';
+import { personSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, stage, tags } = post.data;
+const stageInfo = stageBySlug(stage);
+const isPipelineStage = STAGES.some((s) => s.slug === stage);
+const url = `${SITE.url}/articles/${post.id}/`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    url,
+    mainEntityOfPage: url,
+    datePublished: pubDate.toISOString(),
+    dateModified: (updatedDate ?? pubDate).toISOString(),
+    inLanguage: SITE.locale,
+    keywords: tags.join(', '),
+    articleSection: stageInfo?.name,
+    author: personSchema(),
+    publisher: { '@id': `${SITE.url}/about/#person` },
+  },
+];
+---
+<Base title={title} description={description} type="article" jsonLd={jsonLd} publishedTime={pubDate} modifiedTime={updatedDate}>
+  <article class="wrap">
+    <header class="article-head">
+      <h1>{title}</h1>
+      <p class="lead">{description}</p>
+      <div class="byline">
+        <p>By <a class="author" href="/about/" rel="author">{AUTHOR.name}</a>, {AUTHOR.jobTitle.toLowerCase()}, {AUTHOR.location.split(',')[0]}</p>
+        <p>
+          <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>{updatedDate && <>, updated <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time></>}, {readingMinutes(post.body)} min read, in <a href={`/stages/${stage}/`}>{stageInfo?.name}</a>
+        </p>
+      </div>
+      {isPipelineStage && <Trace current={stage} compact />}
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <aside class="author-card" aria-label="About the author">
+      <h2>{AUTHOR.name}</h2>
+      <p>{AUTHOR.shortBio} <a href="/about/">More about me</a>.</p>
+    </aside>
+  </article>
+</Base>

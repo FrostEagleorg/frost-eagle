@@ -1,0 +1,17 @@
+---
+import { AUTHOR, SITE } from '../config';
+function labelFor(url: string) {
+  if (url.includes('linkedin')) return 'LinkedIn';
+  if (url.includes('github')) return 'GitHub';
+  return new URL(url).hostname.replace('www.', '');
+}
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <p>{SITE.name} is written by <a href="/about/">{AUTHOR.name}</a>, {AUTHOR.jobTitle.toLowerCase()} in {AUTHOR.location.split(',')[0]}. Client details in these articles are changed or removed.</p>
+    <ul>
+      <li><a href="/rss.xml">RSS</a></li>
+      {AUTHOR.sameAs.map((url) => <li><a href={url} rel="me">{labelFor(url)}</a></li>)}
+    </ul>
+  </div>
+</footer>

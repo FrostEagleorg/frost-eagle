@@ -1,0 +1,20 @@
+import { AUTHOR, SITE } from '../config';
+
+export function personSchema() {
+  return {
+    '@type': 'Person',
+    '@id': `${SITE.url}/about/#person`,
+    name: AUTHOR.name,
+    jobTitle: AUTHOR.jobTitle,
+    url: `${SITE.url}/about/`,
+    homeLocation: { '@type': 'Place', name: AUTHOR.location },
+    knowsAbout: [
+      'Microsoft Entra ID Governance',
+      'HR-driven provisioning',
+      'Identity lifecycle management',
+      'Privileged access management',
+      'Hybrid identity',
+    ],
+    ...(AUTHOR.sameAs.length ? { sameAs: AUTHOR.sameAs } : {}),
+  };
+}

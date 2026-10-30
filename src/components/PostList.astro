@@ -1,0 +1,17 @@
+---
+import { stageBySlug } from '../config';
+import { formatDate, postUrl, readingMinutes, type Post } from '../lib/posts';
+interface Props { posts: Post[]; showStage?: boolean; }
+const { posts, showStage = true } = Astro.props;
+---
+<ul class="post-list">
+  {posts.map((post) => (
+    <li>
+      <h3><a href={postUrl(post)}>{post.data.title}</a></h3>
+      <p>{post.data.description}</p>
+      <p class="meta">
+        <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>, {readingMinutes(post.body)} min read{showStage && <>, in <a href={`/stages/${post.data.stage}/`}>{stageBySlug(post.data.stage)?.name}</a></>}
+      </p>
+    </li>
+  ))}
+</ul>

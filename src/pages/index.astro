@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Trace from '../components/Trace.astro';
+import PostList from '../components/PostList.astro';
+import { SITE } from '../config';
+import { getPosts } from '../lib/posts';
+import { personSchema } from '../lib/schema';
+
+const posts = await getPosts();
+const counts: Record<string, number> = {};
+for (const p of posts) counts[p.data.stage] = (counts[p.data.stage] ?? 0) + 1;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: `${SITE.url}/`,
+    description: SITE.description,
+    inLanguage: SITE.locale,
+    author: { '@id': `${SITE.url}/about/#person` },
+  },
+  { '@context': 'https://schema.org', ...personSchema() },
+];
+---
+<Base title={SITE.name} jsonLd={jsonLd}>
+  <div class="wrap">
+    <section class="hero">
+      <h1>From the HR record to the access decision.</h1>
+      <p>Field notes on Microsoft Entra ID Governance and HR-driven provisioning, from real hybrid deployments. What each stage does, what breaks, and how to fix it.</p>
+      <Trace counts={counts} animate />
+      <p class="trace-note">Articles are filed by where they sit in the pipeline. Notes on running identity projects are under <a href="/stages/delivery/">Delivery craft</a>.</p>
+    </section>
+
+    <section aria-labelledby="latest">
+      <h2 class="section-title" id="latest">Latest articles</h2>
+      {posts.length ? <PostList posts={posts.slice(0, 8)} /> : <p class="empty">The first article is on its way.</p>}
+    </section>
+  </div>
+</Base>

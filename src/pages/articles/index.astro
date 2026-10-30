@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/posts';
+const posts = await getPosts();
+---
+<Base title="Articles" description="Every Frost Eagle article on Microsoft Entra ID Governance and HR-driven provisioning, newest first.">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Articles</h1>
+      <p>Everything published so far, newest first.</p>
+    </header>
+    {posts.length ? <PostList posts={posts} /> : <p class="empty">The first article is on its way.</p>}
+  </div>
+</Base>

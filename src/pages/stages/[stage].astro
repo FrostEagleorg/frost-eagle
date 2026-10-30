@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Trace from '../../components/Trace.astro';
+import PostList from '../../components/PostList.astro';
+import { ALL_STAGES, STAGES } from '../../config';
+import { getPosts } from '../../lib/posts';
+
+export function getStaticPaths() {
+  return ALL_STAGES.map((stage) => ({ params: { stage: stage.slug }, props: { stage } }));
+}
+
+const { stage } = Astro.props;
+const all = await getPosts();
+const posts = all.filter((p) => p.data.stage === stage.slug);
+const counts: Record<string, number> = {};
+for (const p of all) counts[p.data.stage] = (counts[p.data.stage] ?? 0) + 1;
+const isPipelineStage = STAGES.some((s) => s.slug === stage.slug);
+---
+<Base title={stage.name} description={stage.summary}>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{stage.name}</h1>
+      <p>{stage.summary}</p>
+      {isPipelineStage && <Trace current={stage.slug} counts={counts} />}
+    </header>
+    {posts.length ? <PostList posts={posts} showStage={false} /> : <p class="empty">Nothing published on this stage yet. Browse <a href="/articles/">all articles</a> in the meantime.</p>}
+  </div>
+</Base>

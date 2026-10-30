@@ -1,0 +1,241 @@
+---
+// The pipeline a person's record travels through, used as the site's map.
+// Each stop links to the articles filed under that stage.
+import { STAGES } from '../config';
+
+interface Props {
+  counts?: Record<string, number>;
+  current?: string;
+  compact?: boolean;
+  animate?: boolean;
+}
+
+const { counts = {}, current, compact = false, animate = false } = Astro.props;
+const label = compact ? 'Where this article sits in the pipeline' : 'The provisioning pipeline';
+---
+
+<nav class:list={['trace', { compact, animate }]} aria-label={label}>
+  <ol>
+    {
+      STAGES.map((stage) => {
+        const n = counts[stage.slug] ?? 0;
+        const isCurrent = stage.slug === current;
+        return (
+          <li class:list={{ current: isCurrent, filled: n > 0 }}>
+            <a href={`/stages/${stage.slug}/`} aria-current={isCurrent ? 'true' : undefined}>
+              <span class="node" aria-hidden="true" />
+              <span class="name">{stage.name}</span>
+              {!compact && n > 0 && <span class="count">{n === 1 ? '1 article' : `${n} articles`}</span>}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ol>
+  {animate && <span class="record" aria-hidden="true" />}
+</nav>
+
+<style>
+  .trace {
+    --node: 14px;
+    position: relative;
+    margin-block: 2.5rem 1rem;
+    font-family: var(--sans);
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    position: relative;
+  }
+
+  /* the line */
+  ol::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--node) / 2 - 1px);
+    left: calc(100% / 12);
+    right: calc(100% / 12);
+    height: 2px;
+    background: var(--glacier);
+  }
+
+  li {
+    position: relative;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.6rem;
+    padding: 0 0.35rem 0.4rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .node {
+    width: var(--node);
+    height: var(--node);
+    border-radius: 50%;
+    background: var(--frost);
+    border: 2px solid var(--glacier);
+    position: relative;
+    z-index: 1;
+    transition: background-color 0.15s ease;
+  }
+
+  .name {
+    font-weight: 620;
+    font-size: 1.02rem;
+    line-height: 1.2;
+  }
+
+  .count {
+    font-size: 0.88rem;
+    color: var(--slate);
+    margin-top: -0.3rem;
+  }
+
+  a:hover .node {
+    background: var(--glacier);
+  }
+
+  a:hover .name {
+    color: var(--glacier);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+
+  li.filled .node {
+    background: var(--glacier);
+  }
+
+  li:not(.filled):not(.current) .name {
+    color: var(--slate);
+    font-weight: 520;
+  }
+
+  .compact li:not(.current) .name {
+    color: var(--slate);
+  }
+
+  li.current .node {
+    background: var(--talon);
+    border-color: var(--talon);
+  }
+
+  li.current .name {
+    color: var(--ink);
+  }
+
+  /* compact variant on article pages */
+  .compact {
+    --node: 10px;
+    margin-block: 2rem 0;
+    max-width: var(--measure);
+  }
+
+  .compact .name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--slate);
+  }
+
+  .compact li.current .name {
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  /* the record: one dot travels the pipeline once on load */
+  .record {
+    position: absolute;
+    top: calc(var(--node) / 2 - 5px);
+    left: calc(100% / 12 - 5px);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--talon);
+    z-index: 2;
+    opacity: 0;
+    animation: travel 2.6s cubic-bezier(0.55, 0.1, 0.35, 1) 0.4s 1 forwards;
+  }
+
+  @keyframes travel {
+    0% {
+      opacity: 0;
+      transform: translateX(0);
+    }
+    8% {
+      opacity: 1;
+    }
+    88% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(var(--run));
+    }
+  }
+
+  .animate {
+    --run: 0px;
+  }
+
+  @media (max-width: 720px) {
+    ol {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    ol::before {
+      top: calc(var(--node) / 2);
+      bottom: calc(var(--node) / 2 + 1.6rem);
+      left: calc(var(--node) / 2 - 1px);
+      right: auto;
+      width: 2px;
+      height: auto;
+    }
+
+    a {
+      flex-direction: row;
+      align-items: baseline;
+      text-align: left;
+      gap: 0.85rem;
+      padding: 0 0 1.1rem;
+    }
+
+    .node {
+      flex: none;
+      transform: translateY(2px);
+    }
+
+    .count {
+      margin: 0 0 0 auto;
+    }
+
+    .compact {
+      display: none;
+    }
+
+    .record {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Set the travel distance to the real width of the line so the dot lands on the last stop.
+  const traces = document.querySelectorAll<HTMLElement>('.trace.animate');
+  traces.forEach((trace) => {
+    const list = trace.querySelector('ol');
+    if (!list) return;
+    const width = list.getBoundingClientRect().width;
+    trace.style.setProperty('--run', `${(width * 10) / 12}px`);
+  });
+</script>
