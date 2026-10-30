@@ -18,20 +18,50 @@ function labelFor(url: string) {
   return new URL(url).hostname.replace('www.', '');
 }
 ---
-<Base title={`${AUTHOR.name}, ${AUTHOR.jobTitle.toLowerCase()}`} description={AUTHOR.shortBio} jsonLd={jsonLd}>
+<Base title={`${AUTHOR.name}, ${AUTHOR.jobTitle.toLowerCase()}`} description={AUTHOR.shortBio} jsonLd={jsonLd} image={AUTHOR.photo}>
   <div class="wrap">
-    <header class="page-head">
-      <h1>{AUTHOR.name}</h1>
-      <p>{AUTHOR.jobTitle} in {AUTHOR.location}. I write {SITE.name}.</p>
+    <header class="page-head about-head">
+      <img src={AUTHOR.photo} alt={`Portrait of ${AUTHOR.name}`} width="640" height="640" />
+      <div>
+        <h1>{AUTHOR.name}</h1>
+        <p>{AUTHOR.jobTitle} in {AUTHOR.location}. I write {SITE.name}, and I help businesses automate identity and access.</p>
+      </div>
     </header>
     <div class="prose">
       <p>I lead the technical delivery of Microsoft Entra ID Governance projects: connecting HR and payroll systems to Active Directory and Entra ID, automating joiners, movers and leavers with Lifecycle Workflows, and turning HR attributes into access with entitlement management. Before that I delivered privileged access management with BeyondTrust.</p>
       <p>Most of that work happens in hybrid environments, where the documentation stops well short of what production needs. {SITE.name} is where I write up what I find there: how each stage of the pipeline really behaves, the faults I've traced, and the designs that held up.</p>
       <p>Every example is rebuilt in my own lab tenant. Client names and details are removed or changed.</p>
+      <p>I also work directly with small and medium businesses that want their HR system to drive access automatically. <a href="/consulting/">Here's how that works</a>.</p>
       <h2>Get in touch</h2>
-      {AUTHOR.sameAs.length
-        ? <p>The best way to reach me is {AUTHOR.sameAs.map((url, i) => <>{i > 0 && ' or '}<a href={url} rel="me">{labelFor(url)}</a></>)}.</p>
-        : <p>Profile links are coming soon.</p>}
+      <p>Email me at <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>{AUTHOR.sameAs.length > 0 && <>, or find me on {AUTHOR.sameAs.map((url, i) => <>{i > 0 && ' and '}<a href={url} rel="me">{labelFor(url)}</a></>)}</>}.</p>
     </div>
   </div>
 </Base>
+
+<style>
+  .about-head {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .about-head img {
+    width: 9.5rem;
+    height: 9.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 560px) {
+    .about-head {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .about-head img {
+      width: 7.5rem;
+      height: 7.5rem;
+    }
+  }
+</style>

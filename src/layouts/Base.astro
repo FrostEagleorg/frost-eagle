@@ -11,6 +11,7 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   publishedTime?: Date;
   modifiedTime?: Date;
+  image?: string;
 }
 const { description = SITE.description, ...rest } = Astro.props;
 ---

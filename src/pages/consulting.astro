@@ -65,7 +65,7 @@ const jsonLd = [
   },
 ];
 ---
-<Base title="Consulting" description="I help small and medium businesses in Australia and New Zealand automate who gets access, from the HR record to the day someone leaves, using Microsoft Entra ID Governance." jsonLd={jsonLd}>
+<Base title="Consulting" description="I help small and medium businesses in Australia and New Zealand automate who gets access, from the HR record to the day someone leaves, using Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
   <div class="wrap">
     <header class="page-head">
       <h1>Consulting</h1>
@@ -109,7 +109,7 @@ const jsonLd = [
       <p>The <a href="/articles/">articles</a> on this site come out of that work, if you'd like to see how I think about these problems before we talk.</p>
 
       <h2>Start with a conversation</h2>
-      <p>Send me a message {linkedin ? <a href={linkedin} rel="me">on LinkedIn</a> : 'on LinkedIn'} with a line or two about your business: roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
+      <p>Email me at <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>, or send me a message {linkedin ? <a href={linkedin} rel="me">on LinkedIn</a> : 'on LinkedIn'}, with a line or two about your business: roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
     </div>
   </div>
 </Base>

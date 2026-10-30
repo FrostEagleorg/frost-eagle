@@ -13,6 +13,8 @@ export const AUTHOR = {
   name: 'David Gbuzue',
   jobTitle: 'Identity and security architect',
   location: 'Sydney, Australia',
+  email: 'hello@frosteagle.com',
+  photo: '/images/david-gbuzue.jpg',
   shortBio:
     'Identity and security architect in Sydney. I design and build Microsoft Entra ID Governance, HR-driven provisioning and privileged access for Australian and New Zealand organisations.',
   // Add your profile URLs here. They become visible links and tell search

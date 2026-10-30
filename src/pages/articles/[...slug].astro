@@ -33,11 +33,12 @@ const jsonLd = [
     keywords: tags.join(', '),
     articleSection: stageInfo?.name,
     author: personSchema(),
+    image: `${SITE.url}/og/${post.id}.png`,
     publisher: { '@id': `${SITE.url}/about/#person` },
   },
 ];
 ---
-<Base title={title} description={description} type="article" jsonLd={jsonLd} publishedTime={pubDate} modifiedTime={updatedDate}>
+<Base title={title} description={description} type="article" jsonLd={jsonLd} publishedTime={pubDate} modifiedTime={updatedDate} image={`/og/${post.id}.png`}>
   <article class="wrap">
     <header class="article-head">
       <h1>{title}</h1>

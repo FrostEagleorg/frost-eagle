@@ -7,6 +7,8 @@ export function personSchema() {
     name: AUTHOR.name,
     jobTitle: AUTHOR.jobTitle,
     url: `${SITE.url}/about/`,
+    image: `${SITE.url}${AUTHOR.photo}`,
+    email: `mailto:${AUTHOR.email}`,
     homeLocation: { '@type': 'Place', name: AUTHOR.location },
     knowsAbout: [
       'Microsoft Entra ID Governance',
