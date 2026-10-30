@@ -1,0 +1,78 @@
+---
+// A vertical sequence of stages, drawn as the same line-and-node motif as the pipeline.
+interface Step { name: string; body: string; outcome?: string; }
+interface Props { steps: Step[]; }
+const { steps } = Astro.props;
+---
+<ol class="journey">
+  {steps.map((step, i) => (
+    <li>
+      <span class="node" aria-hidden="true">{i + 1}</span>
+      <div>
+        <h3>{step.name}</h3>
+        <p>{step.body}</p>
+        {step.outcome && <p class="outcome">{step.outcome}</p>}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .journey {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    max-width: var(--measure);
+    position: relative;
+  }
+
+  .journey::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 16px;
+    bottom: 2.5rem;
+    width: 2px;
+    background: var(--glacier);
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 1.25rem;
+    padding-bottom: 2.25rem;
+    position: relative;
+  }
+
+  .node {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--glacier);
+    background: var(--frost);
+    color: var(--glacier);
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: grid;
+    place-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 680;
+    margin-top: 0.15rem;
+  }
+
+  p {
+    margin: 0.5rem 0 0;
+  }
+
+  .outcome {
+    font-family: var(--sans);
+    font-size: 0.98rem;
+    color: var(--slate);
+  }
+</style>

@@ -144,6 +144,23 @@ h4 {
 .site-nav a {
   color: var(--ink);
   text-decoration: none;
+  white-space: nowrap;
+}
+
+.wordmark {
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .site-header .wrap {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+  }
+
+  .site-nav {
+    gap: 1.1rem;
+    font-size: 0.97rem;
+  }
 }
 
 .site-nav a:hover,
