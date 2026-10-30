@@ -65,7 +65,7 @@ const jsonLd = [
     url: `${SITE.url}/consulting/`,
     email: AUTHOR.email,
     areaServed: ['Australia', 'New Zealand'],
-    employee: [personSchema(), { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'COO' }],
+    employee: [personSchema(), { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'COO', image: `${SITE.url}/images/lauren-battaglia.jpg` }],
     description:
       'Automated onboarding, role changes and offboarding for small and medium businesses, driven by HR and payroll data, using Microsoft Entra ID Governance.',
   },
@@ -159,9 +159,12 @@ const jsonLd = [
       <div class="team-grid">
         {TEAM.map((t) => (
           <div class="person">
-            <h3>{t.name}</h3>
-            <p class="role">{t.role}</p>
-            <p>{t.body}</p>
+            <img src={t.photo} alt={`Portrait of ${t.name}`} width="640" height="640" loading="lazy" />
+            <div>
+              <h3>{t.name}</h3>
+              <p class="role">{t.role}</p>
+              <p>{t.body}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -469,7 +472,18 @@ const jsonLd = [
 
   .person {
     border-top: 2px solid var(--ink);
-    padding-top: 1rem;
+    padding-top: 1.25rem;
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .person img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    object-fit: cover;
   }
 
   .person .role {
