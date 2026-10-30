@@ -21,7 +21,7 @@ export const AUTHOR = {
   // Add your profile URLs here. They become visible links and tell search
   // engines these profiles belong to the same person as this site.
   // e.g. 'https://www.linkedin.com/in/your-handle', 'https://github.com/your-handle'
-  sameAs: ['https://www.linkedin.com/in/davidgbuzue/'] as string[],
+  sameAs: ['https://www.linkedin.com/in/dubemg/'] as string[],
 };
 
 // The people behind Frost Eagle, shown on the Consulting page.
