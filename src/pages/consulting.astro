@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import Journey from '../components/Journey.astro';
+import { AUTHOR, SITE } from '../config';
+import { personSchema } from '../lib/schema';
+
+const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
+
+const fixes = [
+  {
+    name: 'Before they start',
+    body: "As soon as HR enters a new starter, their account is created from the payroll record, with a consistent name, username and email address. Their role and site are worked out from their job title and location, and their manager is linked. Ahead of the start date, the manager is told who's coming and a ticket is raised for anything that still needs a person, like a laptop.",
+  },
+  {
+    name: 'First day',
+    body: "The account is switched on for their start date, and the manager receives a one-time code to get them signed in. Everything their role and site need is already there. If HR entered them late, even after their first day, they're picked up and set up anyway.",
+  },
+  {
+    name: 'When they change roles',
+    body: "A new title or site in payroll is all it takes. Access for the new role is added, access for the old one is removed after a short handover period, and the right people are told so anything manual can be done.",
+  },
+  {
+    name: 'When they leave',
+    body: "The end date in payroll drives the rest. On their last day their access is removed and their account is switched off, and their mailbox is kept for whoever picks up their work. If someone has to leave immediately, IT can run the same steps on demand. If they come back later, they return as the same person, with their history intact.",
+  },
+  {
+    name: 'All along',
+    body: "Anyone who needs extra access can request it, with the right approver and an expiry date. Access is reviewed regularly by the people who know whether it's still needed, and admin accounts come from the same HR record, so they're switched off with everything else. When an auditor or insurer asks who has access to what and why, the answer is already written down.",
+  },
+];
+
+const process = [
+  {
+    name: 'Readiness review',
+    body: "I look at the four things that decide how big the job is: your HR data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most of the risk is in the HR data, so that's where I spend the most time.",
+    outcome: 'You get a short written report of what I found, what needs fixing first, a recommended design, and a fixed quote for the rest.',
+  },
+  {
+    name: 'Design',
+    body: "We agree what drives access, what people get automatically and what they ask for, when accounts are switched on and off, and how it connects to your other systems. Every decision is written down in plain language, with the options we didn't take and why.",
+    outcome: 'A design you sign off before any build starts, so the scope and the price are settled.',
+  },
+  {
+    name: 'Build and switch on',
+    body: "I build it alongside your current process and test it against your real HR data. Nothing changes for your people until it's ready, and then we switch it on a group at a time so any surprises stay small.",
+    outcome: 'Joiners, movers and leavers handled automatically, in production.',
+  },
+  {
+    name: 'Handover',
+    body: "Your IT team, or your managed service provider, gets clear documentation and a walk-through of how it all fits together. If you'd like someone to call on afterwards, we can agree that separately.",
+    outcome: 'Something your team can run and change without me.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: `${AUTHOR.name}, identity governance consulting`,
+    url: `${SITE.url}/consulting/`,
+    areaServed: ['Australia', 'New Zealand'],
+    founder: personSchema(),
+    description:
+      'Automated onboarding, role changes and offboarding for small and medium businesses, driven by HR data, using Microsoft Entra ID Governance.',
+  },
+];
+---
+<Base title="Consulting" description="I help small and medium businesses in Australia and New Zealand automate who gets access, from the HR record to the day someone leaves, using Microsoft Entra ID Governance." jsonLd={jsonLd}>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Consulting</h1>
+      <p>I help small and medium businesses in Australia and New Zealand give their people the right access automatically, from the moment HR enters them to the day they leave. It's built on Microsoft Entra ID Governance, an add-on to the Microsoft licences many businesses already have.</p>
+    </header>
+
+    <div class="prose">
+      <h2>The problems</h2>
+      <p>In most growing businesses, setting people up and switching them off is handled by one or two people in IT, or by the managed service provider, working from emails and tickets. It works until it doesn't.</p>
+      <ul>
+        <li>New starters wait for accounts, or arrive to find half their access missing.</li>
+        <li>People are set up by copying a colleague in a similar job, and inherit everything that colleague picked up over the years.</li>
+        <li>Leavers keep access to email and business apps for weeks because nobody told IT in time.</li>
+        <li>When an auditor, a client or a cyber insurer asks who has access to what, and who approved it, nobody can answer quickly.</li>
+      </ul>
+      <p>The information to fix all of this usually exists already. Your HR or payroll system knows who starts, who changes roles and who leaves, and when. It just isn't connected to the systems that grant access.</p>
+
+      <h2>How I fix them</h2>
+      <p>I connect your HR data to Microsoft Entra ID so that it drives access on its own. Once that's running, this is what a person's time with you looks like:</p>
+    </div>
+
+    <Journey steps={fixes} />
+
+    <div class="prose">
+      <p>Where your HR or payroll system doesn't connect straight to Entra ID, or the data needs shaping first, I bring in an HR integration platform I've used in production, licensed through a partner. It keeps one clean, current copy of your people data with a history of every change, turns job titles and location codes into the roles and sites access is based on, and gives Entra ID a complete, consistent record every time. If your HR system already connects cleanly, you won't need it.</p>
+
+      <h2>How a project runs</h2>
+      <p>There are four stages, and you can stop after any of them. Starting with the readiness review on its own is a sensible way to find out what you're dealing with before committing to more.</p>
+    </div>
+
+    <Journey steps={process} />
+
+    <div class="prose">
+      <h2>Recent work</h2>
+      <p>Projects I've led or designed, with the names left out:</p>
+      <ul>
+        <li>An industrial business operating across Australia and New Zealand: payroll-driven provisioning into Active Directory and Entra ID, automated joiners, movers and leavers, rule-based access, and ServiceNow integration.</li>
+        <li>An Australian financial institution: identity governance and privileged access together, from HR-driven provisioning through to BeyondTrust.</li>
+        <li>A university and a healthcare distributor: privileged access management with BeyondTrust.</li>
+      </ul>
+      <p>The <a href="/articles/">articles</a> on this site come out of that work, if you'd like to see how I think about these problems before we talk.</p>
+
+      <h2>Start with a conversation</h2>
+      <p>Send me a message {linkedin ? <a href={linkedin} rel="me">on LinkedIn</a> : 'on LinkedIn'} with a line or two about your business: roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
+    </div>
+  </div>
+</Base>
