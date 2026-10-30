@@ -4,7 +4,7 @@ description: 'Two small mistakes in a lab provisioning pipeline: a UPN expressio
 pubDate: 2026-10-30
 stage: hr-source
 tags: ['API-driven inbound provisioning', 'Cloud Sync', 'Matching attributes', 'Data quality']
-draft: true
+draft: false
 ---
 
 This one comes from my lab rather than a client, which means I can show the broken bits without blurring anything out. The data was synthetic: a flat file of worker records going through API-driven inbound provisioning into on-premises Active Directory, then up to Entra ID with Cloud Sync.

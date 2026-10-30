@@ -4,7 +4,7 @@ description: 'A custom AD attribute synced into Entra ID gets a name that includ
 pubDate: 2026-10-30
 stage: directory-sync
 tags: ['Cloud Sync', 'Connect Sync', 'Directory extensions', 'Hybrid identity']
-draft: true
+draft: false
 ---
 
 On a recent hybrid project we extended the on-premises AD schema with a few attributes the payroll data needed somewhere to live: a hire date, a termination date, a flag for people leaders, and some org-structure values. The two dates could land on Entra ID's built-in `employeeHireDate` and `employeeLeaveDateTime`, which is where Lifecycle Workflows expect them. The rest had no built-in home, and access package rules depended on them, so they had to reach Entra ID some other way. Halfway through the project, the client decided to move user sync from Connect Sync to Cloud Sync. That turned a simple attribute flow into something we had to plan, and I think the reason is easy to miss until it bites you.

@@ -4,7 +4,7 @@ description: 'A walk through a hybrid HR-driven provisioning pipeline: what each
 pubDate: 2026-10-30
 stage: hr-source
 tags: ['HR-driven provisioning', 'Inbound provisioning', 'Hybrid identity', 'Lifecycle Workflows']
-draft: true
+draft: false
 ---
 
 Most of what I write here is about one stage of a pipeline that takes a person from a payroll system to the access they need on their first day. This post is the map for the rest. It follows one new starter through a hybrid design, the kind where accounts still live in on-premises Active Directory, and stops at each hop to look at what changes and what tends to go wrong.
