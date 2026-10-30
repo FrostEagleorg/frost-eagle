@@ -27,12 +27,12 @@ export const AUTHOR = {
 export const TEAM = [
   {
     name: 'David Gbuzue',
-    role: 'Co-founder and CTO',
+    role: 'CTO',
     body: 'Designs and builds the identity side: HR integration, Microsoft Entra ID Governance and privileged access.',
   },
   {
     name: 'Lauren Battaglia',
-    role: 'Co-founder and COO',
+    role: 'COO',
     body: 'Navigates the complexities of client delivery environments, so projects run smoothly on your side as well as ours.',
   },
 ];

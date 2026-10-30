@@ -6,10 +6,10 @@ import { personSchema } from '../lib/schema';
 const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
 
 const problems = [
-  { title: 'New starters wait', body: 'Accounts arrive a day or two late, or on time with half the access missing, and the first week goes on chasing it.' },
-  { title: 'Access gets copied', body: 'People are set up by cloning a colleague in a similar job, and quietly inherit everything that colleague collected over the years.' },
-  { title: 'Leavers linger', body: "Nobody told IT in time, so a former employee can still get into email and business apps weeks after they've gone." },
-  { title: 'Nobody can say who approved it', body: 'When an auditor, a client or a cyber insurer asks who has access to what, the answer is buried in old tickets and inboxes.' },
+  { title: "A new starter's first week", body: "Someone starts on Monday and their account turns up on Wednesday, or it's there but half their apps aren't. They spend the week asking for access instead of getting on with the job." },
+  { title: 'Setting people up', body: "The quickest way to set someone up is to copy a colleague with a similar job. The catch is that they get everything that colleague has picked up over the years as well, including things they shouldn't have." },
+  { title: 'When someone leaves', body: "If HR doesn't tell IT, or tells them late, the account stays active. It's surprisingly common for a former employee's email and apps to keep working for weeks." },
+  { title: 'When someone asks', body: 'Auditors, insurers and larger clients want to know who can get into what, and who signed off on it. Pulling that together from old tickets and inboxes can take days.' },
 ];
 
 const lifecycle = [
@@ -65,7 +65,7 @@ const jsonLd = [
     url: `${SITE.url}/consulting/`,
     email: AUTHOR.email,
     areaServed: ['Australia', 'New Zealand'],
-    founder: [personSchema(), { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'Co-founder and COO' }],
+    employee: [personSchema(), { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'COO' }],
     description:
       'Automated onboarding, role changes and offboarding for small and medium businesses, driven by HR data, using Microsoft Entra ID Governance.',
   },
@@ -80,8 +80,8 @@ const jsonLd = [
     </header>
 
     <section aria-labelledby="problems">
-      <h2 id="problems">Sound familiar?</h2>
-      <p class="section-lead">In most growing businesses, one or two people in IT, or the managed service provider, handle starters and leavers from emails and tickets. It works until it doesn't.</p>
+      <h2 id="problems">Where it usually goes wrong</h2>
+      <p class="section-lead">In a lot of growing businesses, starters and leavers are handled by one or two people in IT, or by the managed service provider, working from emails and tickets. These are the places it tends to slip.</p>
       <div class="problem-grid">
         {problems.map((p) => (
           <div class="problem">
@@ -90,7 +90,7 @@ const jsonLd = [
           </div>
         ))}
       </div>
-      <p class="aside">Your HR or payroll system already knows who starts, who changes roles and who leaves, and when. It just isn't connected to the systems that grant access. That's what we fix.</p>
+      <p class="aside">The frustrating part is that your HR or payroll system usually has all of this already: who's starting, who's moving, who's leaving, and on what date. It just isn't connected to anything that grants access, and connecting it is the work we do.</p>
     </section>
 
     <section aria-labelledby="changes">
