@@ -3,9 +3,9 @@
 export const SITE = {
   url: 'https://frosteagle.com',
   name: 'Frost Eagle',
-  tagline: 'Identity governance consulting and field notes, Sydney',
+  tagline: 'Entra ID Governance consulting and HR-driven provisioning, Sydney',
   description:
-    'Field notes on Microsoft Entra ID Governance and HR-driven provisioning: how a person gets from the HR record to the right access, and what breaks along the way.',
+    'Frost Eagle automates onboarding, role changes and offboarding from your HR or payroll system with Microsoft Entra ID Governance, for businesses in Australia and New Zealand. Plus field notes on what breaks along the way.',
   locale: 'en-AU',
 };
 

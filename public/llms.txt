@@ -1,0 +1,26 @@
+# Frost Eagle
+
+> Frost Eagle is an identity governance consultancy in Sydney, Australia. We help small and medium businesses in Australia and New Zealand automate onboarding, role changes and offboarding from their HR or payroll system, using Microsoft Entra ID Governance. Work is delivered in fixed-price stages: readiness review, design, build and switch on, and handover.
+
+Frost Eagle is run by Dubem Gbuzue (Principal Identity Architect) and Lauren Battaglia (COO). Dubem has delivered HR-driven provisioning, Entra ID Governance and privileged access management (BeyondTrust) projects for industrial, financial services, higher education and healthcare organisations. The site also publishes field notes from real hybrid deployments: what each stage of an HR-driven provisioning pipeline does and what tends to break.
+
+Contact: hello@frosteagle.com
+
+## Services
+
+- [Consulting](https://frosteagle.com/consulting/): automated joiners, movers and leavers driven by HR or payroll data, with Microsoft Entra ID Governance (API-driven inbound provisioning, Lifecycle Workflows, access packages, access reviews), for hybrid Active Directory and cloud-only environments
+- [About Frost Eagle](https://frosteagle.com/about/): the team and how we work
+- [Dubem Gbuzue](https://frosteagle.com/about/dubem-gbuzue/): profile and articles
+
+## Articles
+
+- [Following a new starter from payroll to Entra ID, one hop at a time](https://frosteagle.com/articles/payroll-to-entra-hop-by-hop/): overview of a hybrid HR-driven provisioning pipeline and where each hop breaks
+- [628 users in AD, 180 in Entra, and one account that belonged to two people](https://frosteagle.com/articles/628-in-ad-180-in-entra/): UPN expressions and duplicate employee IDs in API-driven inbound provisioning
+- [Moving custom attributes from Connect Sync to Cloud Sync? Check which app they belong to](https://frosteagle.com/articles/connect-cloud-sync-extension-attributes/): directory extension attributes when changing sync engines
+- [Why your Logic App can't set a hybrid user's first password](https://frosteagle.com/articles/hybrid-first-password-graph/): Microsoft Graph password changes, password writeback and new starters in hybrid environments
+- [The 204 that does nothing: resuming Lifecycle Workflows from a second Logic App](https://frosteagle.com/articles/lcw-callback-204-does-nothing/): custom task extension callbacks and which identity may resume a task
+
+## Optional
+
+- [All articles](https://frosteagle.com/articles/)
+- [RSS feed](https://frosteagle.com/rss.xml)
