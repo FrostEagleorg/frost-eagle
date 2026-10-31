@@ -1,6 +1,6 @@
 # Frost Eagle
 
-> Frost Eagle is an identity governance consultancy in Sydney, Australia. We help small and medium businesses in Australia and New Zealand automate onboarding, role changes and offboarding from their HR or payroll system, using Microsoft Entra ID Governance. Work is delivered in fixed-price stages: readiness review, design, build and switch on, and handover.
+> Frost Eagle is an identity governance consultancy in Sydney, Australia. We help mid-sized businesses (typically 500 staff or more) in Australia and New Zealand automate onboarding, role changes and offboarding from their HR or payroll system, using Microsoft Entra ID Governance. The first conversation, discovery and proposal are free; an optional proof of concept has a small fixed fee; design, build and switch on, and handover are delivered in fixed-price stages.
 
 Frost Eagle is run by Dubem Gbuzue (Principal Identity Architect) and Lauren Battaglia (COO). Dubem has delivered HR-driven provisioning, Entra ID Governance and privileged access management (BeyondTrust) projects for industrial, financial services, higher education and healthcare organisations. The site also publishes field notes from real hybrid deployments: what each stage of an HR-driven provisioning pipeline does and what tends to break.
 

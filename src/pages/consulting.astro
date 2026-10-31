@@ -38,9 +38,9 @@ const capabilities = [
 
 const stages = [
   {
-    name: 'Readiness review',
-    outcome: 'A short report, a recommended design and a fixed quote.',
-    body: "We look at the four things that decide how big the job is: your HR and payroll data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most project risk sits in that data, so that's where we focus our time. You're welcome to stop at this point and keep the report, or follow it with a small proof of concept before going further.",
+    name: 'Discovery and proposal',
+    outcome: 'A recommended solution and a fixed-price proposal, at no cost.',
+    body: "We look at the four things that decide how big the job is: your HR and payroll data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most project risk sits in that data, so that's where we focus. We then talk the solution through with you, and if you're happy with the direction, we put it into a proposal with the scope, a fixed price, and the licensing and support costs alongside it. There's no charge for this stage.",
   },
   {
     name: 'Design',
@@ -75,15 +75,15 @@ const jsonLd = [
     areaServed: ['Australia', 'New Zealand'],
     employee: [personSchema(), { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'COO', image: `${SITE.url}/images/lauren-battaglia.jpg` }],
     description:
-      'Automated onboarding, role changes and offboarding for small and medium businesses, driven by HR and payroll data, using Microsoft Entra ID Governance.',
+      'Automated onboarding, role changes and offboarding for mid-sized businesses, driven by HR and payroll data, using Microsoft Entra ID Governance.',
   },
 ];
 ---
-<Base title="Entra ID Governance consulting: automated onboarding and offboarding" description="We help small and medium businesses in Australia and New Zealand let their HR or payroll system run access: onboarding, role changes and offboarding, automated with Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
+<Base title="Entra ID Governance consulting: automated onboarding and offboarding" description="We help mid-sized businesses in Australia and New Zealand let their HR or payroll system run access: onboarding, role changes and offboarding, automated with Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
   <div class="wrap consult">
     <header class="hero-c">
       <h1>Onboarding and offboarding, driven by your HR or payroll system</h1>
-      <p>Frost Eagle helps small and medium businesses in Australia and New Zealand connect their HR or payroll system to Microsoft Entra ID, so that accounts and access are created, changed and removed as people join, move and leave. The work builds on Microsoft Entra ID Governance, which adds to the Microsoft licences many businesses already hold, and is delivered in fixed-price stages.</p>
+      <p>Frost Eagle helps mid-sized businesses in Australia and New Zealand connect their HR or payroll system to Microsoft Entra ID, so that accounts and access are created, changed and removed as people join, move and leave. The work builds on Microsoft Entra ID Governance, which adds to the Microsoft licences many businesses already hold, and is delivered in fixed-price stages.</p>
       <p class="proof">Most recently, we delivered this for an industrial business across Australia and New Zealand: about 5,000 staff on Affinity payroll, hybrid Active Directory and Entra ID, with ServiceNow handling the manual steps. <a href="/case-studies/industrial-australia-new-zealand/">Read the case study</a></p>
       <p class="hero-actions"><a class="button" href={enquiry}>Discuss your onboarding process</a><span class="cta-note">A free 45-minute conversation, with no obligation.</span></p>
     </header>
@@ -112,7 +112,7 @@ const jsonLd = [
         <li>Your IT team or managed service provider spends a noticeable share of its week on setting people up and removing them.</li>
         <li>Auditors, insurers or customers are asking how you control access.</li>
       </ul>
-      <p class="aside">Our largest recent project covered about 5,000 staff, but the same approach works for smaller organisations. The scope, and the price, scale down to match.</p>
+      <p class="aside">Projects usually make sense from around 500 staff. Our largest recent one covered about 5,000, and the scope and price scale with the size of the organisation.</p>
     </section>
 
     <section aria-labelledby="changes">
@@ -149,7 +149,7 @@ const jsonLd = [
         <p>All of this depends on good people data. Where your HR or payroll system can't connect directly to Entra ID, or the data needs preparing first, we use an HR integration platform we have run in production, licensed through a partner.</p>
         <p>It sits between your HR or payroll system and Entra ID and makes sure each record arrives complete and consistent. If your system already connects cleanly, it isn't needed.</p>
         <p>It's a SaaS platform hosted in Microsoft Azure in Australia, with each customer's data kept separate. Its licence is billed separately from your Microsoft licences.</p>
-        <p>Payroll and HR systems we've delivered against include Affinity, MicroPay and Connx. If yours is one we haven't worked with, the readiness review checks whether it has an API or a scheduled export, which fields it holds and how reliably they're kept up to date. That way you'll know whether it can drive access before anything further is quoted.</p>
+        <p>Payroll and HR systems we've delivered against include Affinity, MicroPay and Connx. If yours is one we haven't worked with, discovery checks whether it has an API or a scheduled export, which fields it holds and how reliably they're kept up to date. That way you'll know whether it can drive access before anything is quoted.</p>
       </div>
       <dl class="caps">
         {capabilities.map((c) => (
@@ -163,7 +163,7 @@ const jsonLd = [
 
     <section aria-labelledby="how">
       <h2 id="how">How we run a project</h2>
-      <p class="section-lead">The usual route is a free first conversation, then a readiness review, an optional proof of concept if you'd like to see it working with your own data, and then design, build and handover. Everything after the first conversation is fixed price, agreed before each stage begins, and you can stop after any stage. Select a stage for more detail.</p>
+      <p class="section-lead">The usual route is a free first conversation, then a free discovery stage that ends in a fixed-price proposal. If you'd like to see it working with your own data first, an optional proof of concept is available for a small fixed fee. Design, build and handover follow, each at a fixed price set out in the proposal, and you can stop after any stage. Select a stage for more detail.</p>
       <div class="stages">
         {stages.map((s, i) => (
           <details class="stage">
@@ -181,13 +181,13 @@ const jsonLd = [
 
     <section aria-labelledby="costs">
       <h2 id="costs">What it costs</h2>
-      <p class="section-lead">There are up to four separate costs, and it helps to see them apart. The readiness review sets out all of them for your situation before you commit to anything further.</p>
+      <p class="section-lead">There are up to four separate costs, and it helps to see them apart. The proposal sets out all of them for your situation before you commit to anything.</p>
       <table class="costs">
         <thead>
           <tr><th scope="col">Cost</th><th scope="col">What it covers</th><th scope="col">How it's charged</th></tr>
         </thead>
         <tbody>
-          <tr><td>Our work</td><td data-label="Covers">Readiness review, design, build and handover</td><td data-label="Charged">Fixed price per stage, agreed before each one starts</td></tr>
+          <tr><td>Our work</td><td data-label="Covers">Design, build and handover, plus an optional proof of concept</td><td data-label="Charged">Fixed price per stage, set out in the proposal. Discovery and the proposal are free.</td></tr>
           <tr><td>Microsoft licences</td><td data-label="Covers">Entra ID P1, which many businesses already have through Microsoft 365 Business Premium or E3, plus Entra ID Governance for the people in scope</td><td data-label="Charged">Through your usual Microsoft licensing partner</td></tr>
           <tr><td>Integration platform</td><td data-label="Covers">Only needed when your HR or payroll system can't connect cleanly on its own</td><td data-label="Charged">Licensed separately</td></tr>
           <tr><td>Ongoing support</td><td data-label="Covers">Help after handover, if you'd like it</td><td data-label="Charged">Optional, agreed separately</td></tr>
@@ -246,7 +246,7 @@ const jsonLd = [
 
     <section class="contact" aria-labelledby="talk">
       <h2 id="talk">Start with a conversation</h2>
-      <p>The first conversation is free and takes about 45 minutes. We'll get to know your business and how people are set up today, talk through where we could help, and agree whether a readiness review is the right next step.</p>
+      <p>The first conversation is free and takes about 45 minutes. We'll get to know your business and how people are set up today, talk through where we could help, and agree whether it's worth moving on to discovery and a proposal.</p>
       <p class="contact-actions">
         <a class="button light" href={enquiry}>Email us your requirements</a>
         <a class="text-link" href={`mailto:${AUTHOR.email}`}>or email {AUTHOR.email}</a>

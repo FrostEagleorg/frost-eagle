@@ -11,7 +11,7 @@ export async function getStaticPaths() {
       props: { title: post.data.title, kicker: stageBySlug(post.data.stage)?.name ?? 'Article', stage: post.data.stage },
     })),
     { params: { slug: 'site' }, props: { title: 'From the HR record to the right access.', kicker: 'Microsoft Entra ID Governance and HR-driven provisioning' } },
-    { params: { slug: 'consulting' }, props: { title: 'Automated onboarding, role changes and offboarding, driven by your HR or payroll data.', kicker: 'Consulting for small and medium businesses' } },
+    { params: { slug: 'consulting' }, props: { title: 'Automated onboarding, role changes and offboarding, driven by your HR or payroll data.', kicker: 'Consulting for mid-sized businesses' } },
   ];
 }
 
