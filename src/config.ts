@@ -94,3 +94,17 @@ export type StageSlug = (typeof ALL_STAGES)[number]['slug'];
 export function stageBySlug(slug: string) {
   return ALL_STAGES.find((s) => s.slug === slug);
 }
+
+// Opens an email with the useful questions already in it, so nobody has to start from a blank page.
+export const ENQUIRY_MAILTO = `mailto:${AUTHOR.email}?subject=${encodeURIComponent('Automating onboarding and offboarding')}&body=${encodeURIComponent(
+  [
+    'Hi Frost Eagle,',
+    '',
+    'Roughly how many people we have:',
+    'Our HR or payroll system:',
+    'Do we still run on-premises Active Directory?',
+    "What's prompting us to look at this now:",
+    '',
+    'Thanks,',
+  ].join('\n'),
+)}`;

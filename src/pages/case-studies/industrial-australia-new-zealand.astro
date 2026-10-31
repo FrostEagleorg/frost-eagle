@@ -1,0 +1,184 @@
+---
+import Base from '../../layouts/Base.astro';
+import { ENQUIRY_MAILTO, SITE } from '../../config';
+
+const title = 'Case study: payroll-driven access for 5,000 people across Australia and New Zealand';
+const description =
+  'How an industrial business with about 5,000 staff, 66 sites, Affinity payroll and hybrid Active Directory moved onboarding, role changes and offboarding onto Microsoft Entra ID Governance, and the complications along the way.';
+
+const facts = [
+  ['Size', 'About 5,000 staff across around 66 sites'],
+  ['Countries', 'Australia and New Zealand'],
+  ['Payroll', 'Affinity'],
+  ['Directory', 'On-premises Active Directory, synced to Entra ID'],
+  ['Service desk', 'ServiceNow'],
+  ['Built with', 'Entra ID Governance: API-driven inbound provisioning, Lifecycle Workflows, access packages'],
+  ['Commercials', 'Fixed price'],
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    author: { '@type': 'Organization', name: SITE.name, url: `${SITE.url}/` },
+    publisher: { '@id': `${SITE.url}/#org` },
+    mainEntityOfPage: `${SITE.url}/case-studies/industrial-australia-new-zealand/`,
+  },
+];
+---
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker"><a href="/consulting/">Consulting</a> / Case study</p>
+      <h1>Payroll-driven access for 5,000 people across two countries</h1>
+      <p>An industrial business in Australia and New Zealand. We've left their name out.</p>
+    </header>
+
+    <dl class="facts">
+      {facts.map(([k, v]) => (
+        <div>
+          <dt>{k}</dt>
+          <dd>{v}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="prose">
+      <h2>What they wanted</h2>
+      <p>The goal was for payroll to decide who gets an account and what they can get into. New starters, role changes and leavers would all run from the record in Affinity, across both countries, with the client's own IT team able to look after it afterwards.</p>
+
+      <h2>What we built</h2>
+      <p>Records come out of Affinity, get cleaned up and enriched by an HR integration platform, and go to Microsoft's API-driven inbound provisioning, which creates and updates accounts in Active Directory. From there they sync up to Entra ID, where the governance happens.</p>
+      <p>Lifecycle Workflows handle the joiner, mover and leaver steps. A new starter's account is created ahead of time but stays switched off until shortly before they start, and their manager is told who's coming. Leavers are switched off on their last day, and their mailbox is kept for whoever takes over the work.</p>
+      <p>Access is grouped into access packages by role and by site, covering things like ServiceNow, reporting and finance, and most of them are assigned automatically from what payroll says about the person. When someone moves roles, their old access stays for a short grace period so handovers aren't cut short, and is then removed. The access that does need a decision is requested and approved in Entra.</p>
+      <p>Some apps still need hands-on setup, so those get a ServiceNow ticket with the person's details already filled in. The person is created in ServiceNow first, so each ticket arrives complete.</p>
+
+      <h2>What made it harder than it looks</h2>
+      <p>Payroll stored locations as codes that meant nothing outside payroll, spread across around 66 sites, and at first its API couldn't return their names at all. We set up one lookup table keyed on payroll's own codes, mapping each one to a real site and its address. Opening or moving a site now needs a single change in one place.</p>
+      <p>Close to 200 different job titles fed the access rules. Instead of trusting a handful of patterns, we tested every rule against the full list of titles while the rules were still switched off. This caught frontline roles that one rule would have placed on office licences, and it was corrected before it could affect anyone.</p>
+      <p>The existing directory had years of history in it: shared, service and contractor accounts sitting alongside staff, and people whose directory details no longer matched payroll. We worked through employee IDs with their IT team so each person lined up with exactly one payroll record, and agreed how the accounts that aren't people should be treated. Existing staff who needed accounts were brought in too, not just new starters.</p>
+      <p>Leavers came with their own rules. Executives who leave are handled differently from everyone else, urgent exits can't wait for payroll, and now and then a new starter only goes into payroll on the day they start. Each of these has a flag on the person's record or an on-demand workflow, so the automation handles it without anyone having to remember.</p>
+      <p>Two Microsoft behaviours only showed up in testing. One sync engine quietly ignored the custom attributes the rules depended on, and Microsoft's API couldn't set a first password on an account that lives in Active Directory. Both turned up before go-live, and we changed the design around them. We've written up <a href="/articles/connect-cloud-sync-extension-attributes/">the attribute problem</a> and <a href="/articles/hybrid-first-password-graph/">the password one</a> for anyone building something similar.</p>
+      <p>Running across two countries also meant start and finish dates had to land at the right local time in each one, which we built into the design from the start.</p>
+
+      <h2>Where it landed</h2>
+      <p>It's live in production. New starters' accounts are ready before their first day, existing staff who needed accounts have them, dates work across both time zones, and executive leavers follow their own path without a manual step.</p>
+    </div>
+
+    <figure class="quote">
+      <blockquote><p>Exceptional and impeccable work from start to finish. Attention to detail and expertise at what they do.</p></blockquote>
+      <figcaption>Their Head of IT, who called after go-live to say how happy the team was with the project and the way it was run</figcaption>
+    </figure>
+
+    <section class="next">
+      <h2>Thinking about something similar?</h2>
+      <p>The first conversation is free and takes about 45 minutes. We'll talk through how people are set up today and whether a proof of concept would be worthwhile.</p>
+      <p><a class="button" href={ENQUIRY_MAILTO}>Discuss your onboarding process</a> <a class="text-link" href="/consulting/">or read how we work</a></p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .kicker {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--slate);
+    margin: 0 0 0.6rem;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0 2rem;
+    margin: 2rem 0 2.5rem;
+    max-width: 52rem;
+  }
+
+  .facts div {
+    border-top: 1px solid var(--rule);
+    padding: 0.8rem 0;
+  }
+
+  .facts dt {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--glacier-deep);
+  }
+
+  .facts dd {
+    margin: 0.25rem 0 0;
+    font-size: 1.02rem;
+  }
+
+  .quote {
+    margin: 3rem 0 0;
+    max-width: 44rem;
+    border-top: 2px solid var(--ink);
+    padding-top: 1.25rem;
+  }
+
+  .quote blockquote {
+    margin: 0;
+  }
+
+  .quote blockquote p {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+    line-height: 1.35;
+    font-style: italic;
+  }
+
+  .quote figcaption {
+    margin-top: 0.75rem;
+    font-family: var(--sans);
+    color: var(--slate);
+  }
+
+  .next {
+    margin: 4rem 0 2rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: var(--ink);
+    color: var(--frost);
+    border-radius: 4px;
+    max-width: 52rem;
+  }
+
+  .next h2 {
+    color: var(--frost);
+    margin: 0;
+  }
+
+  .next p {
+    margin: 0.9rem 0 0;
+    max-width: 40rem;
+  }
+
+  .button {
+    display: inline-block;
+    font-family: var(--sans);
+    font-weight: 600;
+    padding: 0.8rem 1.3rem;
+    background: var(--frost);
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 3px;
+    margin: 0.4rem 1.2rem 0.4rem 0;
+  }
+
+  .button:hover {
+    background: #ffffff;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .text-link {
+    color: var(--frost);
+    font-family: var(--sans);
+  }
+</style>

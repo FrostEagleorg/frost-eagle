@@ -1,44 +1,32 @@
 ---
 import Base from '../layouts/Base.astro';
-import { AUTHOR, SITE, TEAM } from '../config';
+import { AUTHOR, ENQUIRY_MAILTO, SITE, TEAM } from '../config';
 import { personSchema } from '../lib/schema';
 
 const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
 
-// Opens an email with the useful questions already in it, so nobody has to start from a blank page.
-const enquiry = `mailto:${AUTHOR.email}?subject=${encodeURIComponent('Automating onboarding and offboarding')}&body=${encodeURIComponent(
-  [
-    'Hi Frost Eagle,',
-    '',
-    'Roughly how many people we have:',
-    'Our HR or payroll system:',
-    'Do we still run on-premises Active Directory?',
-    "What's prompting us to look at this now:",
-    '',
-    'Thanks,',
-  ].join('\n'),
-)}`;
+const enquiry = ENQUIRY_MAILTO;
 
 const problems = [
-  { title: "A new starter's first week", body: "Someone starts on Monday and their account turns up on Wednesday, or it's there but half their apps aren't. They spend the week asking for access instead of getting on with the job." },
-  { title: 'Setting people up', body: "The quickest way to set someone up is to copy a colleague with a similar job. The catch is that they get everything that colleague has picked up over the years as well, including things they shouldn't have." },
-  { title: 'When someone leaves', body: "If HR doesn't tell IT, or tells them late, the account stays active. It's surprisingly common for a former employee's email and apps to keep working for weeks." },
-  { title: 'When someone asks', body: 'Auditors, insurers and larger clients want to know who can get into what, and who signed off on it. Pulling that together from old tickets and inboxes can take days.' },
+  { title: 'New starters waiting for access', body: "When accounts are set up by hand, a new starter's first few days often go on chasing access to email, apps and shared files. That's lost time for them and their manager, and not the first impression most businesses want to give." },
+  { title: 'Access copied from a colleague', body: "Setting someone up by mirroring a colleague in a similar role is quick, but it also passes on whatever that colleague has collected over the years. Over time, people end up with more access than their job needs." },
+  { title: 'Accounts left active after people leave', body: "If IT isn't told about a departure, or hears about it late, the account can stay active for days or weeks. For many businesses this is one of the more serious risks in a manual process." },
+  { title: 'Answering audit and insurance questions', body: 'Auditors, cyber insurers and larger customers increasingly ask who has access to what, and who approved it. Without a central record, putting that answer together from tickets and inboxes can take days.' },
 ];
 
 const lifecycle = [
-  { name: 'Before they start', body: 'Their account is created from the payroll record, with their role, site and manager worked out. The manager hears who is coming, and a ticket goes out for the laptop.' },
-  { name: 'First day', body: 'The account switches on for their start date, the manager gets a one-time code to sign them in, and everything their role needs is already there.' },
-  { name: 'Changing roles', body: 'A new title or site in payroll adds the new access and removes the old after a short handover. Anyone with manual work to do is told.' },
-  { name: 'Leaving', body: 'On their last day access is removed and the account is switched off, with the mailbox kept for whoever takes over. Urgent exits run on demand.' },
-  { name: 'All along', body: 'Extra access is requested and approved with an expiry date, reviewed regularly, and recorded, so the audit answer is always ready.' },
+  { name: 'Before they start', body: "An account is created from the payroll record, with the person's role, site and manager already set. Their manager is notified, and a request can go out for equipment such as a laptop." },
+  { name: 'First day', body: 'The account is switched on in time for their start date, and their manager receives a one-time code to help them sign in. The access their role needs is in place from the start.' },
+  { name: 'Changing roles', body: 'When a new title or site is recorded in payroll, the new access is added and the previous access is removed after a short handover period. Anyone with manual steps to complete is notified.' },
+  { name: 'Leaving', body: 'On their last day, access is removed and the account is disabled, while the mailbox is kept for whoever picks up their work. Urgent departures can be actioned immediately.' },
+  { name: 'Throughout', body: 'Additional access is requested and approved with an expiry date, reviewed regularly and recorded, so audit questions can be answered with confidence.' },
 ];
 
 const exceptions = [
-  { title: 'HR enters it late', body: "A start date that goes in after the person has already started still gets them set up properly, instead of the rules quietly skipping them. The same goes for a leave date entered after someone has gone." },
-  { title: 'Someone has to go today', body: "Urgent terminations run on demand, so access is removed straight away without waiting for payroll to catch up." },
-  { title: "Leavers who aren't straightforward", body: "Garden leave, executives whose accounts are handled differently, and whatever quirks your own leaver schedule has. We record these on the person's record so the automation can tell them apart and treat them the right way." },
-  { title: 'Time zones and the people you already have', body: "Start and finish dates land at the right time in each country you operate in. Staff already on payroll are brought in as well, so existing people who need an account get one, not just new starters." },
+  { title: 'New starters entered late', body: "Occasionally a new hire is only entered into payroll on the day they start. The design allows for this, so they're still set up that day rather than being missed because their start date has already passed." },
+  { title: 'Urgent departures', body: 'When someone needs to leave immediately, the leaver process can be run on demand, removing access straight away without waiting for payroll to be updated.' },
+  { title: 'Leavers with particular requirements', body: "Garden leave, executives whose accounts need different treatment, and the specific rules in your own leaver process are recorded on the person's record, so the automation can apply the right handling to each of them." },
+  { title: 'Multiple countries and existing staff', body: 'Start and finish dates are applied at the correct local time in each country you operate in. Existing staff are brought in as part of the rollout, so your current workforce benefits as well as new starters.' },
 ];
 
 const capabilities = [
@@ -52,22 +40,22 @@ const stages = [
   {
     name: 'Readiness review',
     outcome: 'A short report, a recommended design and a fixed quote.',
-    body: "We look at the four things that decide how big the job is: your HR and payroll data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most of the risk sits in that data, so that's where we spend the most time. You can stop here and keep the report.",
+    body: "We look at the four things that decide how big the job is: your HR and payroll data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most project risk sits in that data, so that's where we focus our time. You're welcome to stop at this point and keep the report.",
   },
   {
     name: 'Design',
-    outcome: 'A signed-off design, so scope and price are settled.',
+    outcome: 'A signed-off design that settles scope and price.',
     body: "Together we decide what drives access, what people get automatically and what they ask for, when accounts are switched on and off, and how it connects to your other systems. Every decision is written down in plain language, along with the options we didn't take and why.",
   },
   {
     name: 'Build and switch on',
-    outcome: 'Joiners, movers and leavers running automatically.',
-    body: "We build it alongside your current process and test it against your real HR and payroll data, not tidy samples. Nothing changes for your people until it's ready, and then we switch it on a group at a time so any surprises stay small.",
+    outcome: 'Joiner, mover and leaver processes running in production.',
+    body: "We build alongside your current process and test against your real HR and payroll data rather than sample data. Nothing changes for your staff until it's ready, and we then switch it on in groups so that any issues stay contained.",
   },
   {
     name: 'Handover',
-    outcome: 'Something your team can run without us.',
-    body: "Your IT team, or your managed service provider, gets clear documentation and a walk-through of how it all fits together. If you'd like us on call afterwards, we can agree that separately.",
+    outcome: 'Documentation and a walk-through so your team can run it with confidence.',
+    body: "Your IT team or managed service provider receives clear documentation and a walk-through of how everything fits together. If you'd like ongoing support afterwards, we can agree that separately.",
   },
 ];
 
@@ -94,14 +82,14 @@ const jsonLd = [
 <Base title="Entra ID Governance consulting: automated onboarding and offboarding" description="We help small and medium businesses in Australia and New Zealand let their HR or payroll system run access: onboarding, role changes and offboarding, automated with Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
   <div class="wrap consult">
     <header class="hero-c">
-      <h1>Let your HR or payroll system run access.</h1>
-      <p>Frost Eagle is a small identity team that automates how small and medium businesses in Australia and New Zealand set people up, move them and switch them off, straight from their HR or payroll system. It runs on Microsoft Entra ID Governance, an add-on to the Microsoft licences many businesses already have.</p>
+      <h1>Onboarding and offboarding, driven by your HR or payroll system</h1>
+      <p>Frost Eagle helps small and medium businesses in Australia and New Zealand connect their HR or payroll system to Microsoft Entra ID, so that accounts and access are created, changed and removed as people join, move and leave. The work builds on Microsoft Entra ID Governance, which adds to the Microsoft licences many businesses already hold, and is delivered in fixed-price stages.</p>
       <p class="hero-actions"><a class="button" href={enquiry}>Discuss your onboarding process</a></p>
     </header>
 
     <section aria-labelledby="problems">
-      <h2 id="problems">Where it usually goes wrong</h2>
-      <p class="section-lead">In a lot of growing businesses, starters and leavers are handled by one or two people in IT, or by the managed service provider, working from emails and tickets. These are the places it tends to slip.</p>
+      <h2 id="problems">Where manual processes tend to fall short</h2>
+      <p class="section-lead">In many growing businesses, joiners and leavers are handled by a small IT team or a managed service provider, working from emails and tickets. It generally works, but a few areas become costly or risky as the business grows.</p>
       <div class="problem-grid">
         {problems.map((p) => (
           <div class="problem">
@@ -110,12 +98,12 @@ const jsonLd = [
           </div>
         ))}
       </div>
-      <p class="aside">The frustrating part is that your HR or payroll system usually has all of this already: who's starting, who's moving, who's leaving, and on what date. It just isn't connected to anything that grants access. We connect it, and automate the routine steps that follow.</p>
+      <p class="aside">In most cases the information needed to address this already exists. Your HR or payroll system knows who is starting, who is changing roles and who is leaving, and when. Our work is to connect that information to Entra ID and automate the steps that follow.</p>
     </section>
 
     <section aria-labelledby="changes">
-      <h2 id="changes">What gets automated</h2>
-      <p class="section-lead">Once your HR or payroll data drives access, the routine steps of a person's time with you run on their own. Every business also has its awkward cases, and the next section covers those.</p>
+      <h2 id="changes">What the automation covers</h2>
+      <p class="section-lead">Once your HR or payroll data is driving access, the routine steps across a person's time with you are handled consistently and on time. This is what that typically looks like, and the detail is agreed with you during design.</p>
       <ol class="timeline">
         {lifecycle.map((s) => (
           <li>
@@ -128,8 +116,8 @@ const jsonLd = [
     </section>
 
     <section aria-labelledby="exceptions">
-      <h2 id="exceptions">When something doesn't go to plan</h2>
-      <p class="section-lead">Real HR data has gaps, and every business has its own rules about who leaves when. These are the kinds of cases we plan for from the start, most of them straight from recent projects.</p>
+      <h2 id="exceptions">Planning for the exceptions</h2>
+      <p class="section-lead">No HR process runs perfectly, and every organisation has its own rules for how particular people should be handled. We plan for these cases from the outset, and the examples below come from recent projects.</p>
       <div class="problem-grid">
         {exceptions.map((p) => (
           <div class="problem">
@@ -143,10 +131,10 @@ const jsonLd = [
     <section aria-labelledby="hrdata" class="split">
       <div>
         <h2 id="hrdata">Getting your HR and payroll data in</h2>
-        <p>Everything above starts with your people data. Where your HR or payroll system doesn't connect straight to Entra ID, or the data needs shaping first, we bring in an HR integration platform we've run in production, licensed through a partner.</p>
-        <p>It sits between your HR or payroll system and Entra ID and hands over a complete, consistent record every time. If your system already connects cleanly, you won't need it.</p>
+        <p>All of this depends on good people data. Where your HR or payroll system can't connect directly to Entra ID, or the data needs preparing first, we use an HR integration platform we have run in production, licensed through a partner.</p>
+        <p>It sits between your HR or payroll system and Entra ID and makes sure each record arrives complete and consistent. If your system already connects cleanly, it isn't needed.</p>
         <p>It's a SaaS platform hosted in Microsoft Azure in Australia, with each customer's data kept separate. Its licence is billed separately from your Microsoft licences.</p>
-        <p>Payroll and HR systems we've delivered against include Affinity, MicroPay and Connx. If yours is one we haven't worked with, the readiness review checks whether it has an API or a scheduled export, which fields it holds and how reliably they're kept up to date. You'll know whether it can drive access before anything else is quoted.</p>
+        <p>Payroll and HR systems we've delivered against include Affinity, MicroPay and Connx. If yours is one we haven't worked with, the readiness review checks whether it has an API or a scheduled export, which fields it holds and how reliably they're kept up to date. That way you'll know whether it can drive access before anything further is quoted.</p>
       </div>
       <dl class="caps">
         {capabilities.map((c) => (
@@ -160,7 +148,7 @@ const jsonLd = [
 
     <section aria-labelledby="how">
       <h2 id="how">How we run a project</h2>
-      <p class="section-lead">Four stages, each at a fixed price agreed before it starts, and you can stop after any of them. Open a stage for the detail.</p>
+      <p class="section-lead">Projects run in four stages, each at a fixed price agreed before it begins, and you can choose to stop after any of them. Select a stage for more detail.</p>
       <div class="stages">
         {stages.map((s, i) => (
           <details class="stage">
@@ -178,20 +166,21 @@ const jsonLd = [
 
     <section aria-labelledby="work">
       <h2 id="work">Recent work</h2>
-      <p class="section-lead">With the names left out. The <a href="/articles/">articles</a> on this site come out of the same work.</p>
+      <p class="section-lead">Client names are withheld. Many of the <a href="/articles/">articles</a> on this site draw on the same projects.</p>
       <article class="case">
         <h3>Industrial business across Australia and New Zealand</h3>
         <p class="case-meta">About 5,000 staff, around 66 sites in two countries, Affinity payroll, hybrid Active Directory and Entra ID, ServiceNow</p>
         <div class="case-body">
           <div>
             <h4>What we built</h4>
-            <p>Payroll became the source of truth for who works there. New starters, role changes and leavers flow from Affinity into Active Directory and Entra ID, and access to apps and reports is assigned by role and site. Where an app still needs setting up by hand, ServiceNow gets a ticket with the details filled in.</p>
+            <p>Payroll is now the source of truth for who works there. New starters, role changes and leavers flow from Affinity into Active Directory and Entra ID, and access to apps and reports is assigned by role and site. Where an app still needs setting up by hand, ServiceNow gets a ticket with the details filled in.</p>
           </div>
           <div>
             <h4>What changed</h4>
             <p>It's live in production. New starters' accounts are ready before their first day, and existing staff who needed accounts were brought in as well. Start and finish dates work across both countries' time zones, and executives who leave are handled by a flag on their record instead of a manual step.</p>
           </div>
         </div>
+        <p class="case-link"><a href="/case-studies/industrial-australia-new-zealand/">Read the full case study, including what made it hard and how we handled it</a></p>
         <figure class="quote">
           <blockquote><p>Exceptional and impeccable work from start to finish. Attention to detail and expertise at what they do.</p></blockquote>
           <figcaption>Their Head of IT, who called after go-live to say how happy the team was with the project and the way it was run</figcaption>
@@ -225,7 +214,7 @@ const jsonLd = [
 
     <section class="contact" aria-labelledby="talk">
       <h2 id="talk">Start with a conversation</h2>
-      <p>The first conversation is free and takes about 45 minutes. We get to know your business and how people are set up today, talk through where we could help, and work out together whether a proof of concept is worth doing before anything bigger.</p>
+      <p>The first conversation is free and takes about 45 minutes. We'll get to know your business and how people are set up today, talk through where we could help, and work out together whether a proof of concept would be worthwhile before committing to anything larger.</p>
       <p>The button opens an email with four short questions already in it: roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
       <p class="contact-actions">
         <a class="button light" href={enquiry}>Discuss your onboarding process</a>
@@ -279,11 +268,11 @@ const jsonLd = [
   }
 
   .hero-c h1 {
-    font-size: clamp(2.5rem, 6vw, 4.3rem);
-    font-weight: 760;
-    letter-spacing: -0.035em;
-    line-height: 1.03;
-    max-width: 17ch;
+    font-size: clamp(2.3rem, 5vw, 3.5rem);
+    font-weight: 740;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    max-width: 22ch;
   }
 
   .hero-c p {
@@ -542,6 +531,12 @@ const jsonLd = [
     margin: 0.5rem 0 0;
     font-size: 1.05rem;
     line-height: 1.6;
+  }
+
+  .case-link {
+    margin: 1.2rem 0 0;
+    font-family: var(--sans);
+    font-weight: 600;
   }
 
   .case .quote {
