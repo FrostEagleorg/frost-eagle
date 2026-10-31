@@ -36,29 +36,6 @@ const capabilities = [
   { title: 'Handles the awkward cases', body: 'Late starters, late terminations and rehires still get the right treatment.' },
 ];
 
-const stages = [
-  {
-    name: 'Discovery and proposal',
-    outcome: 'A recommended approach and a fixed-price proposal.',
-    body: "We look at the four things that decide how big the job is: your HR and payroll data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most project risk sits in that data, so that's where we focus. We then talk the solution through with you, and once you're happy with the direction, we set out the scope and a fixed price in a proposal.",
-  },
-  {
-    name: 'Design',
-    outcome: 'A signed-off design that settles scope and price.',
-    body: "Together we decide what drives access, what people get automatically and what they ask for, when accounts are switched on and off, and how it connects to your other systems. Every decision is written down in plain language, along with the options we didn't take and why.",
-  },
-  {
-    name: 'Build and switch on',
-    outcome: 'Joiner, mover and leaver processes running in production.',
-    body: "We build alongside your current process and test against your real HR and payroll data rather than sample data. Nothing changes for your staff until it's ready, and we then switch it on in groups so that any issues stay contained.",
-  },
-  {
-    name: 'Handover',
-    outcome: 'Documentation and a walk-through so your team can run it with confidence.',
-    body: "Your IT team or managed service provider receives clear documentation and a walk-through of how everything fits together. If you'd like ongoing support afterwards, we can agree that separately.",
-  },
-];
-
 const work = [
   { who: 'Australian financial institution', what: 'Identity governance and privileged access designed together, from HR-driven provisioning through to BeyondTrust.' },
   { who: 'A university and a healthcare distributor', what: 'Privileged access management with BeyondTrust.' },
@@ -83,7 +60,7 @@ const jsonLd = [
   <div class="wrap consult">
     <header class="hero-c">
       <h1>Onboarding and offboarding, driven by your HR or payroll system</h1>
-      <p>Frost Eagle helps mid-sized businesses in Australia and New Zealand connect their HR or payroll system to Microsoft Entra ID, so that accounts and access are created, changed and removed as people join, move and leave. The work builds on Microsoft Entra ID Governance, which adds to the Microsoft licences many businesses already hold, and is delivered in fixed-price stages.</p>
+      <p>Frost Eagle helps mid-sized businesses in Australia and New Zealand connect their HR or payroll system to Microsoft Entra ID, so that accounts and access are created, changed and removed as people join, move and leave. The work builds on Microsoft Entra ID Governance, which adds to the Microsoft licences many businesses already hold, and is delivered at a fixed price.</p>
       <p class="proof">Most recently, we delivered this for an industrial business across Australia and New Zealand: about 5,000 staff on Affinity payroll, hybrid Active Directory and Entra ID, with ServiceNow handling the manual steps. <a href="/case-studies/industrial-australia-new-zealand/">Read the case study</a></p>
       <p class="hero-actions"><a class="button" href={enquiry}>Discuss your onboarding process</a><span class="cta-note">A free 45-minute conversation, with no obligation.</span></p>
     </header>
@@ -161,24 +138,6 @@ const jsonLd = [
       </dl>
     </section>
 
-    <section aria-labelledby="how">
-      <h2 id="how">How we run a project</h2>
-      <p class="section-lead">Every engagement starts with getting to know your business and what you need. Once the approach is clear, we put it into a fixed-price proposal, and the work runs in the stages below. Select a stage for more detail.</p>
-      <div class="stages">
-        {stages.map((s, i) => (
-          <details class="stage">
-            <summary>
-              <span class="num">{i + 1}</span>
-              <span class="stage-name">{s.name}</span>
-              <span class="stage-outcome">{s.outcome}</span>
-              <span class="more" aria-hidden="true">Read more</span>
-            </summary>
-            <p>{s.body}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-
     <section aria-labelledby="work">
       <h2 id="work">Recent work</h2>
       <p class="section-lead">Client names are withheld. Many of the <a href="/articles/">articles</a> on this site draw on the same projects.</p>
@@ -238,22 +197,6 @@ const jsonLd = [
     </section>
   </div>
 </Base>
-
-<script>
-  // On devices with a mouse, open a stage while it's hovered. Click and keyboard still work everywhere.
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    document.querySelectorAll<HTMLDetailsElement>('details.stage').forEach((d) => {
-      let pinned = false;
-      d.addEventListener('mouseenter', () => { if (!d.open) d.open = true; });
-      d.addEventListener('mouseleave', () => { if (!pinned) d.open = false; });
-      d.querySelector('summary')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        pinned = !pinned;
-        d.open = pinned || d.matches(':hover');
-      });
-    });
-  }
-</script>
 
 <style>
   .consult section {
@@ -475,73 +418,6 @@ const jsonLd = [
     line-height: 1.55;
   }
 
-  /* project stages */
-  .stages {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.25rem;
-    margin-top: 2rem;
-    align-items: start;
-  }
-
-  .stage {
-    border-top: 2px solid var(--glacier);
-    padding-top: 1rem;
-  }
-
-  .stage summary {
-    list-style: none;
-    cursor: pointer;
-    display: grid;
-    gap: 0.4rem;
-    font-family: var(--sans);
-  }
-
-  .stage summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .num {
-    font-weight: 700;
-    color: var(--glacier);
-    font-size: 1rem;
-  }
-
-  .stage-name {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.2;
-  }
-
-  .stage-outcome {
-    font-size: 1rem;
-    color: var(--slate);
-    line-height: 1.45;
-  }
-
-  .more {
-    font-size: 0.92rem;
-    color: var(--glacier);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-    margin-top: 0.2rem;
-  }
-
-  .stage[open] .more {
-    display: none;
-  }
-
-  .stage[open] {
-    border-top-color: var(--talon);
-  }
-
-  .stage p {
-    margin: 0.9rem 0 0;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
   /* testimonial */
   .case {
     margin-top: 2rem;
@@ -732,10 +608,6 @@ const jsonLd = [
       top: 4px;
     }
 
-    .stages {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .split {
       grid-template-columns: 1fr;
       gap: 1.5rem;
@@ -749,8 +621,7 @@ const jsonLd = [
   }
 
   @media (max-width: 600px) {
-    .problem-grid,
-    .stages {
+    .problem-grid {
       grid-template-columns: 1fr;
     }
   }
