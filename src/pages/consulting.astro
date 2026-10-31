@@ -39,8 +39,8 @@ const capabilities = [
 const stages = [
   {
     name: 'Discovery and proposal',
-    outcome: 'A recommended solution and a fixed-price proposal, at no cost.',
-    body: "We look at the four things that decide how big the job is: your HR and payroll data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most project risk sits in that data, so that's where we focus. We then talk the solution through with you, and if you're happy with the direction, we put it into a proposal with the scope, a fixed price, and the licensing and support costs alongside it. There's no charge for this stage.",
+    outcome: 'A recommended approach and a fixed-price proposal.',
+    body: "We look at the four things that decide how big the job is: your HR and payroll data, your Active Directory if you still have one, your Microsoft 365 and Entra ID setup including licensing, and how people are set up and removed today. Most project risk sits in that data, so that's where we focus. We then talk the solution through with you, and once you're happy with the direction, we set out the scope and a fixed price in a proposal.",
   },
   {
     name: 'Design',
@@ -163,7 +163,7 @@ const jsonLd = [
 
     <section aria-labelledby="how">
       <h2 id="how">How we run a project</h2>
-      <p class="section-lead">The usual route is a free first conversation, then a free discovery stage that ends in a fixed-price proposal. If you'd like to see it working with your own data first, an optional proof of concept is available for a small fixed fee. Design, build and handover follow, each at a fixed price set out in the proposal, and you can stop after any stage. Select a stage for more detail.</p>
+      <p class="section-lead">Every engagement starts with getting to know your business and what you need. Once the approach is clear, we put it into a fixed-price proposal, and the work runs in the stages below. Select a stage for more detail.</p>
       <div class="stages">
         {stages.map((s, i) => (
           <details class="stage">
@@ -177,23 +177,6 @@ const jsonLd = [
           </details>
         ))}
       </div>
-    </section>
-
-    <section aria-labelledby="costs">
-      <h2 id="costs">What it costs</h2>
-      <p class="section-lead">There are up to four separate costs, and it helps to see them apart. The proposal sets out all of them for your situation before you commit to anything.</p>
-      <table class="costs">
-        <thead>
-          <tr><th scope="col">Cost</th><th scope="col">What it covers</th><th scope="col">How it's charged</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Our work</td><td data-label="Covers">Design, build and handover, plus an optional proof of concept</td><td data-label="Charged">Fixed price per stage, set out in the proposal. Discovery and the proposal are free.</td></tr>
-          <tr><td>Microsoft licences</td><td data-label="Covers">Entra ID P1, which many businesses already have through Microsoft 365 Business Premium or E3, plus Entra ID Governance for the people in scope</td><td data-label="Charged">Through your usual Microsoft licensing partner</td></tr>
-          <tr><td>Integration platform</td><td data-label="Covers">Only needed when your HR or payroll system can't connect cleanly on its own</td><td data-label="Charged">Licensed separately</td></tr>
-          <tr><td>Ongoing support</td><td data-label="Covers">Help after handover, if you'd like it</td><td data-label="Charged">Optional, agreed separately</td></tr>
-        </tbody>
-      </table>
-      <p class="aside">The price of our work mostly depends on how many people are in scope, how your HR or payroll system connects, whether you still run Active Directory, how many apps and access rules are involved, and the state of your people data.</p>
     </section>
 
     <section aria-labelledby="work">
@@ -246,7 +229,7 @@ const jsonLd = [
 
     <section class="contact" aria-labelledby="talk">
       <h2 id="talk">Start with a conversation</h2>
-      <p>The first conversation is free and takes about 45 minutes. We'll get to know your business and how people are set up today, talk through where we could help, and agree whether it's worth moving on to discovery and a proposal.</p>
+      <p>The first conversation is free and takes about 45 minutes. We'll get to know your business and how people are set up today, talk through where we could help, and agree on sensible next steps.</p>
       <p class="contact-actions">
         <a class="button light" href={enquiry}>Email us your requirements</a>
         <a class="text-link" href={`mailto:${AUTHOR.email}`}>or email {AUTHOR.email}</a>
@@ -351,67 +334,6 @@ const jsonLd = [
 
   .fit-list li + li {
     margin-top: 0.35rem;
-  }
-
-  .costs {
-    width: 100%;
-    max-width: 56rem;
-    margin-top: 1.8rem;
-    border-collapse: collapse;
-    font-size: 1.02rem;
-  }
-
-  .costs th {
-    text-align: left;
-    font-family: var(--sans);
-    font-size: 0.9rem;
-    font-weight: 650;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--glacier-deep);
-    padding: 0 1rem 0.6rem 0;
-    border-bottom: 2px solid var(--ink);
-  }
-
-  .costs td {
-    padding: 0.85rem 1rem 0.85rem 0;
-    border-bottom: 1px solid var(--rule);
-    vertical-align: top;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 600px) {
-    .costs thead {
-      display: none;
-    }
-
-    .costs tr,
-    .costs td {
-      display: block;
-    }
-
-    .costs tr {
-      border-bottom: 1px solid var(--rule);
-      padding: 0.8rem 0;
-    }
-
-    .costs td {
-      border: 0;
-      padding: 0.15rem 0;
-    }
-
-    .costs td[data-label]::before {
-      content: attr(data-label) ': ';
-      font-family: var(--sans);
-      font-weight: 600;
-      color: var(--slate);
-    }
-  }
-
-  .costs td:first-child {
-    font-family: var(--sans);
-    font-weight: 650;
-    white-space: nowrap;
   }
 
   .button {
