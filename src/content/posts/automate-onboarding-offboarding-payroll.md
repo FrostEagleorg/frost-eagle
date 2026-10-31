@@ -4,7 +4,7 @@ description: 'What it takes to let your HR or payroll system create, change and 
 pubDate: 2026-10-31
 stage: lifecycle
 tags: ['HR-driven provisioning', 'Joiners, movers and leavers', 'Lifecycle Workflows', 'Licensing']
-draft: true
+draft: false
 ---
 
 Most of what I write here is for the engineer building the thing. This one is for the person deciding whether to build it at all: an IT manager, or an operations lead who has noticed that every new starter depends on someone in IT reading an email from HR and doing the setup by hand.

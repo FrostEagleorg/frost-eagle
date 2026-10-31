@@ -14,6 +14,7 @@ Contact: hello@frosteagle.com
 
 ## Articles
 
+- [How to automate onboarding and offboarding from your payroll system with Microsoft Entra](https://frosteagle.com/articles/automate-onboarding-offboarding-payroll/): for business and IT decision makers; what HR or payroll-driven joiner, mover and leaver automation involves, which Microsoft licences each piece needs, and where the effort goes
 - [Following a new starter from payroll to Entra ID, one hop at a time](https://frosteagle.com/articles/payroll-to-entra-hop-by-hop/): overview of a hybrid HR-driven provisioning pipeline and where each hop breaks
 - [628 users in AD, 180 in Entra, and one account that belonged to two people](https://frosteagle.com/articles/628-in-ad-180-in-entra/): UPN expressions and duplicate employee IDs in API-driven inbound provisioning
 - [Moving custom attributes from Connect Sync to Cloud Sync? Check which app they belong to](https://frosteagle.com/articles/connect-cloud-sync-extension-attributes/): directory extension attributes when changing sync engines
