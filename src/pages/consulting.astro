@@ -35,10 +35,10 @@ const lifecycle = [
 ];
 
 const exceptions = [
-  { title: 'When something fails', body: "Provisioning errors, a stopped sync or a workflow task that didn't finish raise an alert to a named owner in your team or your managed service provider, instead of waiting in a log for someone to notice." },
-  { title: 'When the payroll feed is wrong', body: "If people are missing from a payroll feed because an export failed or came through half-empty, nothing is switched off. Accounts are only disabled from a real leave date or a deliberate action." },
-  { title: "People who don't fit the rules", body: 'Urgent exits run on demand. Anyone who needs different handling, such as an executive whose mailbox must stay or someone under a legal hold, is flagged and kept out of the automatic path.' },
-  { title: 'Work that still needs a person', body: "Access that needs a judgement call goes to an approver. Where an app still has to be set up by hand, a ticket goes to your service desk with the details already filled in." },
+  { title: 'HR enters it late', body: "A start date that goes in after the person has already started still gets them set up properly, instead of the rules quietly skipping them. The same goes for a leave date entered after someone has gone." },
+  { title: 'Someone has to go today', body: "Urgent terminations run on demand, so access is removed straight away without waiting for payroll to catch up." },
+  { title: "Leavers who aren't straightforward", body: "Garden leave, executives whose accounts are handled differently, and whatever quirks your own leaver schedule has. We record these on the person's record so the automation can tell them apart and treat them the right way." },
+  { title: 'Time zones and the people you already have', body: "Start and finish dates land at the right time in each country you operate in. Staff already on payroll are brought in as well, so existing people who need an account get one, not just new starters." },
 ];
 
 const capabilities = [
@@ -72,7 +72,6 @@ const stages = [
 ];
 
 const work = [
-  { who: 'Industrial business, Australia and New Zealand', what: 'Payroll-driven provisioning into Active Directory and Entra ID, automated joiners, movers and leavers, rule-based access, and ServiceNow integration.' },
   { who: 'Australian financial institution', what: 'Identity governance and privileged access designed together, from HR-driven provisioning through to BeyondTrust.' },
   { who: 'A university and a healthcare distributor', what: 'Privileged access management with BeyondTrust.' },
 ];
@@ -116,7 +115,7 @@ const jsonLd = [
 
     <section aria-labelledby="changes">
       <h2 id="changes">What gets automated</h2>
-      <p class="section-lead">Once your HR or payroll data drives access, the routine steps of a person's time with you run on their own. Approvals and the odd case that doesn't fit the rules still reach a person, and the next section covers how.</p>
+      <p class="section-lead">Once your HR or payroll data drives access, the routine steps of a person's time with you run on their own. Every business also has its awkward cases, and the next section covers those.</p>
       <ol class="timeline">
         {lifecycle.map((s) => (
           <li>
@@ -130,7 +129,7 @@ const jsonLd = [
 
     <section aria-labelledby="exceptions">
       <h2 id="exceptions">When something doesn't go to plan</h2>
-      <p class="section-lead">Integrations fail, payroll data has gaps and some people need handling differently. We design for that from the start, and at handover you get a short runbook saying who owns each alert and what to do about it.</p>
+      <p class="section-lead">Real HR data has gaps, and every business has its own rules about who leaves when. These are the kinds of cases we plan for from the start, most of them straight from recent projects.</p>
       <div class="problem-grid">
         {exceptions.map((p) => (
           <div class="problem">
@@ -146,7 +145,8 @@ const jsonLd = [
         <h2 id="hrdata">Getting your HR and payroll data in</h2>
         <p>Everything above starts with your people data. Where your HR or payroll system doesn't connect straight to Entra ID, or the data needs shaping first, we bring in an HR integration platform we've run in production, licensed through a partner.</p>
         <p>It sits between your HR or payroll system and Entra ID and hands over a complete, consistent record every time. If your system already connects cleanly, you won't need it.</p>
-        <p>If your HR or payroll system is one we haven't worked with, the readiness review checks whether it has an API or a scheduled export, which fields it holds and how reliably they're kept up to date. You'll know whether it can drive access before anything else is quoted.</p>
+        <p>It's a SaaS platform hosted in Microsoft Azure in Australia, with each customer's data kept separate. Its licence is billed separately from your Microsoft licences.</p>
+        <p>Payroll and HR systems we've delivered against include Affinity, MicroPay and Connx. If yours is one we haven't worked with, the readiness review checks whether it has an API or a scheduled export, which fields it holds and how reliably they're kept up to date. You'll know whether it can drive access before anything else is quoted.</p>
       </div>
       <dl class="caps">
         {capabilities.map((c) => (
@@ -179,10 +179,24 @@ const jsonLd = [
     <section aria-labelledby="work">
       <h2 id="work">Recent work</h2>
       <p class="section-lead">With the names left out. The <a href="/articles/">articles</a> on this site come out of the same work.</p>
-      <figure class="quote">
-        <blockquote><p>Exceptional and impeccable work from start to finish. Attention to detail and expertise at what they do.</p></blockquote>
-        <figcaption>Head of IT, industrial business in Australia and New Zealand</figcaption>
-      </figure>
+      <article class="case">
+        <h3>Industrial business across Australia and New Zealand</h3>
+        <p class="case-meta">About 5,000 staff, around 66 sites in two countries, Affinity payroll, hybrid Active Directory and Entra ID, ServiceNow</p>
+        <div class="case-body">
+          <div>
+            <h4>What we built</h4>
+            <p>Payroll became the source of truth for who works there. New starters, role changes and leavers flow from Affinity into Active Directory and Entra ID, and access to apps and reports is assigned by role and site. Where an app still needs setting up by hand, ServiceNow gets a ticket with the details filled in.</p>
+          </div>
+          <div>
+            <h4>What changed</h4>
+            <p>It's live in production. New starters' accounts are ready before their first day, and existing staff who needed accounts were brought in as well. Start and finish dates work across both countries' time zones, and executives who leave are handled by a flag on their record instead of a manual step.</p>
+          </div>
+        </div>
+        <figure class="quote">
+          <blockquote><p>Exceptional and impeccable work from start to finish. Attention to detail and expertise at what they do.</p></blockquote>
+          <figcaption>Their Head of IT, who called after go-live to say how happy the team was with the project and the way it was run</figcaption>
+        </figure>
+      </article>
       <div class="work-grid">
         {work.map((w) => (
           <div class="work">
@@ -211,6 +225,7 @@ const jsonLd = [
 
     <section class="contact" aria-labelledby="talk">
       <h2 id="talk">Start with a conversation</h2>
+      <p>The first conversation is free and takes about 45 minutes. We get to know your business and how people are set up today, talk through where we could help, and work out together whether a proof of concept is worth doing before anything bigger.</p>
       <p>The button opens an email with four short questions already in it: roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
       <p class="contact-actions">
         <a class="button light" href={enquiry}>Discuss your onboarding process</a>
@@ -489,6 +504,50 @@ const jsonLd = [
   }
 
   /* testimonial */
+  .case {
+    margin-top: 2rem;
+    border-top: 2px solid var(--ink);
+    padding-top: 1.25rem;
+  }
+
+  .case h3 {
+    font-size: clamp(1.3rem, 2.4vw, 1.55rem);
+  }
+
+  .case-meta {
+    margin: 0.4rem 0 0;
+    font-family: var(--sans);
+    color: var(--slate);
+    font-size: 1rem;
+  }
+
+  .case-body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 3rem;
+    margin-top: 1.4rem;
+  }
+
+  .case h4 {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--glacier-deep);
+    margin: 0;
+  }
+
+  .case-body p {
+    margin: 0.5rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .case .quote {
+    border-top: 1px solid var(--rule);
+  }
+
   .quote {
     margin: 2rem 0 1.5rem;
     max-width: 44rem;
@@ -638,6 +697,7 @@ const jsonLd = [
     }
 
     .work-grid,
+    .case-body,
     .team-grid {
       grid-template-columns: 1fr;
     }

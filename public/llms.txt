@@ -4,11 +4,11 @@
 
 Frost Eagle is run by Dubem Gbuzue (Principal Identity Architect) and Lauren Battaglia (COO). Dubem has delivered HR-driven provisioning, Entra ID Governance and privileged access management (BeyondTrust) projects for industrial, financial services, higher education and healthcare organisations. The site also publishes field notes from real hybrid deployments: what each stage of an HR-driven provisioning pipeline does and what tends to break.
 
-Contact: hello@frosteagle.com
+Contact: hello@frosteagle.com. The first conversation is free and takes about 45 minutes.
 
 ## Services
 
-- [Consulting](https://frosteagle.com/consulting/): automated joiners, movers and leavers driven by HR or payroll data, with Microsoft Entra ID Governance (API-driven inbound provisioning, Lifecycle Workflows, access packages, access reviews), for hybrid Active Directory and cloud-only environments
+- [Consulting](https://frosteagle.com/consulting/): automated joiners, movers and leavers driven by HR or payroll data, with Microsoft Entra ID Governance (API-driven inbound provisioning, Lifecycle Workflows, access packages, access reviews), for hybrid Active Directory and cloud-only environments. Payroll and HR systems delivered against include Affinity, MicroPay and Connx. The integration platform used where needed is a SaaS service hosted in Microsoft Azure in Australia, licensed separately
 - [About Frost Eagle](https://frosteagle.com/about/): the team and how we work
 - [Dubem Gbuzue](https://frosteagle.com/about/dubem-gbuzue/): profile and articles
 
