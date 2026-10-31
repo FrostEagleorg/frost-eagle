@@ -5,6 +5,20 @@ import { personSchema } from '../lib/schema';
 
 const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
 
+// Opens an email with the useful questions already in it, so nobody has to start from a blank page.
+const enquiry = `mailto:${AUTHOR.email}?subject=${encodeURIComponent('Automating onboarding and offboarding')}&body=${encodeURIComponent(
+  [
+    'Hi Frost Eagle,',
+    '',
+    'Roughly how many people we have:',
+    'Our HR or payroll system:',
+    'Do we still run on-premises Active Directory?',
+    "What's prompting us to look at this now:",
+    '',
+    'Thanks,',
+  ].join('\n'),
+)}`;
+
 const problems = [
   { title: "A new starter's first week", body: "Someone starts on Monday and their account turns up on Wednesday, or it's there but half their apps aren't. They spend the week asking for access instead of getting on with the job." },
   { title: 'Setting people up', body: "The quickest way to set someone up is to copy a colleague with a similar job. The catch is that they get everything that colleague has picked up over the years as well, including things they shouldn't have." },
@@ -18,6 +32,13 @@ const lifecycle = [
   { name: 'Changing roles', body: 'A new title or site in payroll adds the new access and removes the old after a short handover. Anyone with manual work to do is told.' },
   { name: 'Leaving', body: 'On their last day access is removed and the account is switched off, with the mailbox kept for whoever takes over. Urgent exits run on demand.' },
   { name: 'All along', body: 'Extra access is requested and approved with an expiry date, reviewed regularly, and recorded, so the audit answer is always ready.' },
+];
+
+const exceptions = [
+  { title: 'When something fails', body: "Provisioning errors, a stopped sync or a workflow task that didn't finish raise an alert to a named owner in your team or your managed service provider, instead of waiting in a log for someone to notice." },
+  { title: 'When the payroll feed is wrong', body: "If people are missing from a payroll feed because an export failed or came through half-empty, nothing is switched off. Accounts are only disabled from a real leave date or a deliberate action." },
+  { title: "People who don't fit the rules", body: 'Urgent exits run on demand. Anyone who needs different handling, such as an executive whose mailbox must stay or someone under a legal hold, is flagged and kept out of the automatic path.' },
+  { title: 'Work that still needs a person', body: "Access that needs a judgement call goes to an approver. Where an app still has to be set up by hand, a ticket goes to your service desk with the details already filled in." },
 ];
 
 const capabilities = [
@@ -76,7 +97,7 @@ const jsonLd = [
     <header class="hero-c">
       <h1>Let your HR or payroll system run access.</h1>
       <p>Frost Eagle is a small identity team that automates how small and medium businesses in Australia and New Zealand set people up, move them and switch them off, straight from their HR or payroll system. It runs on Microsoft Entra ID Governance, an add-on to the Microsoft licences many businesses already have.</p>
-      <p class="hero-actions"><a class="button" href={`mailto:${AUTHOR.email}`}>Email {AUTHOR.email}</a></p>
+      <p class="hero-actions"><a class="button" href={enquiry}>Discuss your onboarding process</a></p>
     </header>
 
     <section aria-labelledby="problems">
@@ -90,12 +111,12 @@ const jsonLd = [
           </div>
         ))}
       </div>
-      <p class="aside">The frustrating part is that your HR or payroll system usually has all of this already: who's starting, who's moving, who's leaving, and on what date. It just isn't connected to anything that grants access. We connect it, and automate everything that follows.</p>
+      <p class="aside">The frustrating part is that your HR or payroll system usually has all of this already: who's starting, who's moving, who's leaving, and on what date. It just isn't connected to anything that grants access. We connect it, and automate the routine steps that follow.</p>
     </section>
 
     <section aria-labelledby="changes">
       <h2 id="changes">What gets automated</h2>
-      <p class="section-lead">Once your HR or payroll data drives access, every step of a person's time with you is automated. Nobody has to remember to do any of it.</p>
+      <p class="section-lead">Once your HR or payroll data drives access, the routine steps of a person's time with you run on their own. Approvals and the odd case that doesn't fit the rules still reach a person, and the next section covers how.</p>
       <ol class="timeline">
         {lifecycle.map((s) => (
           <li>
@@ -107,11 +128,25 @@ const jsonLd = [
       </ol>
     </section>
 
+    <section aria-labelledby="exceptions">
+      <h2 id="exceptions">When something doesn't go to plan</h2>
+      <p class="section-lead">Integrations fail, payroll data has gaps and some people need handling differently. We design for that from the start, and at handover you get a short runbook saying who owns each alert and what to do about it.</p>
+      <div class="problem-grid">
+        {exceptions.map((p) => (
+          <div class="problem">
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <section aria-labelledby="hrdata" class="split">
       <div>
         <h2 id="hrdata">Getting your HR and payroll data in</h2>
         <p>Everything above starts with your people data. Where your HR or payroll system doesn't connect straight to Entra ID, or the data needs shaping first, we bring in an HR integration platform we've run in production, licensed through a partner.</p>
         <p>It sits between your HR or payroll system and Entra ID and hands over a complete, consistent record every time. If your system already connects cleanly, you won't need it.</p>
+        <p>If your HR or payroll system is one we haven't worked with, the readiness review checks whether it has an API or a scheduled export, which fields it holds and how reliably they're kept up to date. You'll know whether it can drive access before anything else is quoted.</p>
       </div>
       <dl class="caps">
         {capabilities.map((c) => (
@@ -176,9 +211,10 @@ const jsonLd = [
 
     <section class="contact" aria-labelledby="talk">
       <h2 id="talk">Start with a conversation</h2>
-      <p>Tell us roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
+      <p>The button opens an email with four short questions already in it: roughly how many people you have, which HR or payroll system you use, whether you still run Active Directory, and what's prompting you to look at this now.</p>
       <p class="contact-actions">
-        <a class="button light" href={`mailto:${AUTHOR.email}`}>Email {AUTHOR.email}</a>
+        <a class="button light" href={enquiry}>Discuss your onboarding process</a>
+        <a class="text-link" href={`mailto:${AUTHOR.email}`}>or email {AUTHOR.email}</a>
         {linkedin && <a class="text-link" href={linkedin} rel="me">or message {AUTHOR.name.split(' ')[0]} on LinkedIn</a>}
       </p>
     </section>
