@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { AUTHOR, ENQUIRY_MAILTO, SITE, TEAM } from '../config';
+import { AUTHOR, BOOKING_URL, ENQUIRY_MAILTO, SITE, TEAM } from '../config';
 import { personSchema } from '../lib/schema';
 
 const linkedin = AUTHOR.sameAs.find((u) => u.includes('linkedin'));
@@ -62,7 +62,7 @@ const jsonLd = [
       <h1>Onboarding and offboarding, driven by your HR or payroll system</h1>
       <p>Frost Eagle helps mid-sized businesses in Australia and New Zealand connect their HR or payroll system to Microsoft Entra ID, so that accounts and access are created, changed and removed as people join, move and leave. The work builds on Microsoft Entra ID Governance, which adds to the Microsoft licences many businesses already hold, and is delivered at a fixed price.</p>
       <p class="proof">Most recently, we delivered this for an industrial business across Australia and New Zealand: about 5,000 staff on Affinity payroll, hybrid Active Directory and Entra ID, with ServiceNow handling the manual steps. <a href="/case-studies/industrial-australia-new-zealand/">Read the case study</a></p>
-      <p class="hero-actions"><a class="button" href={enquiry}>Discuss your onboarding process</a><span class="cta-note">A free 45-minute conversation, with no obligation.</span></p>
+      <p class="hero-actions"><a class="button" href={BOOKING_URL} target="_blank" rel="noopener">Discuss your onboarding process</a><span class="cta-note">A free 45-minute conversation, with no obligation.</span></p>
     </header>
 
     <section aria-labelledby="problems">
@@ -190,8 +190,8 @@ const jsonLd = [
       <h2 id="talk">Start with a conversation</h2>
       <p>The first conversation is free and takes about 45 minutes. We'll get to know your business and how people are set up today, talk through where we could help, and agree on sensible next steps.</p>
       <p class="contact-actions">
-        <a class="button light" href={enquiry}>Email us your requirements</a>
-        <a class="text-link" href={`mailto:${AUTHOR.email}`}>or email {AUTHOR.email}</a>
+        <a class="button light" href={BOOKING_URL} target="_blank" rel="noopener">Book a conversation</a>
+        <a class="text-link" href={enquiry}>or email us your requirements</a>
         {linkedin && <a class="text-link" href={linkedin} rel="me">or message {AUTHOR.name.split(' ')[0]} on LinkedIn</a>}
       </p>
     </section>

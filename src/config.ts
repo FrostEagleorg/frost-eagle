@@ -108,3 +108,6 @@ export const ENQUIRY_MAILTO = `mailto:${AUTHOR.email}?subject=${encodeURICompone
     'Thanks,',
   ].join('\n'),
 )}`;
+
+// Calendly page for booking the first conversation.
+export const BOOKING_URL = 'https://calendly.com/dubem-frosteagle';
