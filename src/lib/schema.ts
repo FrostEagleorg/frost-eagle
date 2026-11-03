@@ -21,3 +21,33 @@ export function personSchema() {
     ...(AUTHOR.sameAs.length ? { sameAs: AUTHOR.sameAs } : {}),
   };
 }
+
+export function orgSchema() {
+  return {
+    '@type': 'Organization',
+    '@id': `${SITE.url}/#org`,
+    name: SITE.name,
+    url: `${SITE.url}/`,
+    logo: `${SITE.url}/favicon.svg`,
+    description: SITE.description,
+    email: `mailto:${AUTHOR.email}`,
+    taxID: `ABN ${AUTHOR.abn}`,
+    address: { '@type': 'PostalAddress', addressLocality: 'Sydney', addressRegion: 'NSW', addressCountry: 'AU' },
+    areaServed: [
+      { '@type': 'Country', name: 'Australia' },
+      { '@type': 'Country', name: 'New Zealand' },
+    ],
+    knowsAbout: [
+      'Microsoft Entra ID Governance',
+      'HR-driven provisioning',
+      'API-driven inbound provisioning',
+      'Lifecycle Workflows',
+      'Joiner, mover and leaver automation',
+      'Identity governance and administration',
+      'Hybrid Active Directory',
+      'Privileged access management',
+    ],
+    employee: [{ '@id': `${SITE.url}${AUTHOR.profile}#person` }, { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'COO' }],
+    ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {}),
+  };
+}

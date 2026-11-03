@@ -4,7 +4,7 @@ import Trace from '../components/Trace.astro';
 import PostList from '../components/PostList.astro';
 import { AUTHOR, SITE } from '../config';
 import { getPosts } from '../lib/posts';
-import { personSchema } from '../lib/schema';
+import { orgSchema, personSchema } from '../lib/schema';
 
 const posts = await getPosts();
 const counts: Record<string, number> = {};
@@ -20,16 +20,7 @@ const jsonLd = [
     inLanguage: SITE.locale,
     publisher: { '@id': `${SITE.url}/#org` },
   },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': `${SITE.url}/#org`,
-    name: SITE.name,
-    url: `${SITE.url}/`,
-    logo: `${SITE.url}/favicon.svg`,
-    email: AUTHOR.email,
-    employee: { '@id': `${SITE.url}${AUTHOR.profile}#person` },
-  },
+  { '@context': 'https://schema.org', ...orgSchema() },
   { '@context': 'https://schema.org', ...personSchema() },
 ];
 ---

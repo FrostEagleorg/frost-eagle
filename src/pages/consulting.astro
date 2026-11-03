@@ -41,11 +41,44 @@ const work = [
   { who: 'A university and a healthcare distributor', what: 'Privileged access management with BeyondTrust.' },
 ];
 
+const faqs = [
+  {
+    q: 'Which HR or payroll systems can you connect?',
+    a: "Almost any system that can hand its data over, either through an API or a scheduled export. We've delivered against Affinity, MicroPay and Connx, and the same approach applies to ADP and others. Workday and SAP SuccessFactors also have connectors built by Microsoft.",
+  },
+  {
+    q: 'Which Microsoft licences do we need?',
+    a: 'Creating and updating accounts from HR or payroll needs Entra ID P1, which comes with Microsoft 365 Business Premium and E3. The tasks around start and leave dates, and access that follows a person automatically, need Entra ID Governance for the people in scope.',
+  },
+  {
+    q: 'Do we have to move off Active Directory first?',
+    a: 'No. Accounts can be created in on-premises Active Directory and synced to Entra ID, or created directly in Entra ID if you are cloud-only. Our largest recent project ran exactly this way.',
+  },
+  {
+    q: "Our payroll data isn't very clean. Is that a problem?",
+    a: "It's normal, and it's the first thing we look at. Some issues are best fixed in payroll, and others, such as location codes or job titles that need grouping into roles, are handled with mapping in the integration so payroll doesn't have to change.",
+  },
+  {
+    q: 'What happens to the staff we already have?',
+    a: 'Existing staff are matched to their payroll records and brought in as part of the rollout, so the automation covers your current workforce as well as new starters.',
+  },
+  {
+    q: 'Who looks after it once it is live?',
+    a: 'Your IT team or managed service provider, with documentation and a walk-through from us. Ongoing support from us is available if you want it.',
+  },
+  {
+    q: 'Where is our people data held?',
+    a: "Your accounts and access stay in your own Microsoft tenant. When the integration platform is needed, it's a SaaS service hosted in Microsoft Azure in Australia, with each customer's data kept separate.",
+  },
+];
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
+    '@id': `${SITE.url}/consulting/#service`,
     name: SITE.name,
+    provider: { '@id': `${SITE.url}/#org` },
     logo: `${SITE.url}/favicon.svg`,
     url: `${SITE.url}/consulting/`,
     email: AUTHOR.email,
@@ -53,6 +86,11 @@ const jsonLd = [
     employee: [personSchema(), { '@type': 'Person', name: 'Lauren Battaglia', jobTitle: 'COO', image: `${SITE.url}/images/lauren-battaglia.jpg` }],
     description:
       'Automated onboarding, role changes and offboarding for mid-sized businesses, driven by HR and payroll data, using Microsoft Entra ID Governance.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
   },
 ];
 ---
@@ -165,6 +203,18 @@ const jsonLd = [
           <div class="work">
             <h3>{w.who}</h3>
             <p>{w.what}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="faq">
+      <h2 id="faq">Common questions</h2>
+      <div class="faq">
+        {faqs.map((f) => (
+          <div>
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
           </div>
         ))}
       </div>
@@ -418,6 +468,25 @@ const jsonLd = [
     line-height: 1.55;
   }
 
+  /* questions */
+  .faq {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 3rem;
+    margin-top: 1.6rem;
+  }
+
+  .faq div {
+    border-top: 1px solid var(--rule);
+    padding: 1.1rem 0 1.4rem;
+  }
+
+  .faq p {
+    margin: 0.45rem 0 0;
+    font-size: 1.04rem;
+    line-height: 1.6;
+  }
+
   /* testimonial */
   .case {
     margin-top: 2rem;
@@ -614,6 +683,7 @@ const jsonLd = [
     }
 
     .work-grid,
+    .faq,
     .case-body,
     .team-grid {
       grid-template-columns: 1fr;
