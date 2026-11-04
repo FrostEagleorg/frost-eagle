@@ -13,9 +13,9 @@ I've connected Affinity, MicroPay and Connx to Entra ID, and the differences bet
 
 ## What Microsoft supports out of the box
 
-Microsoft has built-in connectors for two HR systems, Workday and SAP SuccessFactors, described in its [cloud HR provisioning plan](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/plan-cloud-hr-provision).
+Microsoft has built-in connectors for two HR systems, Workday and SAP SuccessFactors, described in its [cloud HR provisioning plan](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/plan-cloud-hr-provision). They're a quick way to get started, but they only go as far as their attribute mappings allow. If you need deeper integration, such as reshaping the data before it reaches Entra, merging in a second source, or handling lifecycle events the connector doesn't know about, you'll often end up on the API-driven route even with Workday or SuccessFactors.
 
-Everything else goes through [API-driven inbound provisioning](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-concepts). Microsoft describes it as working with any system of record, whether that's an HR app, a payroll app, a spreadsheet or tables in a database. Something reads the data and sends it to Entra, and Entra decides whether to create, update or disable each account. Depending on how it's set up, the account lands in on-premises Active Directory or straight in Entra ID. It needs Entra ID P1, which many businesses already have through Microsoft 365 Business Premium or E3.
+Every other system goes through [API-driven inbound provisioning](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-concepts). Microsoft describes it as working with any system of record, whether that's an HR app, a payroll app, a spreadsheet or tables in a database. Something reads the data and sends it to Entra, and Entra decides whether to create, update or disable each account. Depending on how it's set up, the account lands in on-premises Active Directory or straight in Entra ID. It needs Entra ID P1, which many businesses already have through Microsoft 365 Business Premium or E3.
 
 Entra will accept your HR data in almost any form, then, and the work is in getting it out of your system in a usable shape.
 
