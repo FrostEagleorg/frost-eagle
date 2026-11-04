@@ -4,7 +4,7 @@ description: 'Affinity, MicroPay, Connx, ADP or something else: what actually de
 pubDate: 2026-11-04
 stage: hr-source
 tags: ['HR-driven provisioning', 'API-driven inbound provisioning', 'Payroll integration', 'Joiners, movers and leavers']
-draft: true
+draft: false
 ---
 
 One of the first questions I get from a business looking at this is whether we support their HR or payroll system. It's a fair thing to ask, though the brand turns out to matter less than most people expect. What matters is how the data gets out of the system, what's in it, and how reliably it's kept up to date.

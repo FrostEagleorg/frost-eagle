@@ -15,6 +15,9 @@ Contact: hello@frosteagle.com. The first conversation is free and takes about 45
 
 ## Articles
 
+- [Connecting your HR or payroll system to Microsoft Entra ID, whichever one you use](https://frosteagle.com/articles/connect-hr-payroll-system-to-entra-id/): Affinity, MicroPay, Connx, ADP and others; how data gets out, what each record needs, where systems differ, and questions to ask your vendor
+- [Do you need Entra ID Governance licences to automate joiners, movers and leavers?](https://frosteagle.com/articles/do-you-need-entra-id-governance-licences/): what Entra ID P1, P2 and Entra ID Governance each cover, and who needs a licence
+- [One identity platform or two? Entra ID Governance, Okta and dedicated governance tools](https://frosteagle.com/articles/entra-id-governance-or-separate-iga-platform/): consolidating onto Entra ID, Microsoft's Okta to Entra migration path, and when a dedicated governance platform is worth it
 - [How to automate onboarding and offboarding from your payroll system with Microsoft Entra](https://frosteagle.com/articles/automate-onboarding-offboarding-payroll/): for business and IT decision makers; what HR or payroll-driven joiner, mover and leaver automation involves, which Microsoft licences each piece needs, and where the effort goes
 - [Following a new starter from payroll to Entra ID, one hop at a time](https://frosteagle.com/articles/payroll-to-entra-hop-by-hop/): overview of a hybrid HR-driven provisioning pipeline and where each hop breaks
 - [628 users in AD, 180 in Entra, and one account that belonged to two people](https://frosteagle.com/articles/628-in-ad-180-in-entra/): UPN expressions and duplicate employee IDs in API-driven inbound provisioning

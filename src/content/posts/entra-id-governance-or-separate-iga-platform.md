@@ -4,7 +4,7 @@ description: 'Why most mid-sized businesses are better served by one identity pl
 pubDate: 2026-11-04
 stage: access
 tags: ['Entra ID Governance', 'Okta migration', 'Identity governance', 'Decision guide']
-draft: true
+draft: false
 ---
 
 A lot of mid-sized businesses end up running two identity platforms without ever deciding to. Entra ID is there because Microsoft 365 needs it. Okta, or something like it, came in later for single sign-on or provisioning, and now both hold a copy of every user. When the conversation turns to automating joiners, movers and leavers, the next suggestion is often a third product: a dedicated governance platform such as SailPoint or Saviynt.

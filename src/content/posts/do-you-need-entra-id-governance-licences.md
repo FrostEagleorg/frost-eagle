@@ -4,7 +4,7 @@ description: 'What Entra ID P1, P2 and Entra ID Governance each cover when you a
 pubDate: 2026-11-04
 stage: lifecycle
 tags: ['Licensing', 'Entra ID Governance', 'Lifecycle Workflows', 'Joiners, movers and leavers']
-draft: true
+draft: false
 ---
 
 Licensing comes up in almost every first conversation I have about automating onboarding and offboarding, usually as "do we really need another licence for this?" The honest answer is that it depends on how far you want the automation to go, and some of it can be done with what you probably already own.
