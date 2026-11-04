@@ -8,7 +8,7 @@ export const SITE = {
     'Frost Eagle automates onboarding, role changes and offboarding from your HR or payroll system with Microsoft Entra ID Governance, for businesses in Australia and New Zealand. Plus field notes on what breaks along the way.',
   locale: 'en-AU',
   // Company profiles elsewhere (LinkedIn company page, Google Business Profile). Helps search engines tie the name to the business.
-  sameAs: [] as string[],
+  sameAs: ['https://www.linkedin.com/company/102190355/'] as string[],
 };
 
 export const AUTHOR = {
