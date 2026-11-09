@@ -97,7 +97,7 @@ const jsonLd = [
 <Base title="Entra ID Governance consulting: automated onboarding and offboarding" description="We help mid-sized businesses in Australia and New Zealand let their HR or payroll system run access: onboarding, role changes and offboarding, automated with Microsoft Entra ID Governance." jsonLd={jsonLd} image="/og/consulting.png">
   <div class="wrap consult">
     <header class="hero-c">
-      <h1>Onboarding and offboarding, driven by your HR or payroll system</h1>
+      <h1>Onboarding and offboarding, driven by <span class="tone">your HR or payroll system</span></h1>
       <p>Frost Eagle helps mid-sized businesses in Australia and New Zealand connect their HR or payroll system to Microsoft Entra ID, so that accounts and access are created, changed and removed as people join, move and leave. The work builds on Microsoft Entra ID Governance, which adds to the Microsoft licences many businesses already hold, and is delivered at a fixed price.</p>
       <p class="proof">Most recently, we delivered this for an industrial business across Australia and New Zealand: about 5,000 staff on Affinity payroll, hybrid Active Directory and Entra ID, with ServiceNow handling the manual steps. <a href="/case-studies/industrial-australia-new-zealand/">Read the case study</a></p>
       <p class="hero-actions"><a class="button" href={BOOKING_URL} target="_blank" rel="noopener">Discuss your onboarding process</a><span class="cta-note">A free 45-minute conversation, with no obligation.</span></p>
@@ -147,7 +147,7 @@ const jsonLd = [
     <section aria-labelledby="exceptions">
       <h2 id="exceptions">Planning for the exceptions</h2>
       <p class="section-lead">No HR process runs perfectly, and every organisation has its own rules for how particular people should be handled. We plan for these cases from the outset, and the examples below come from recent projects.</p>
-      <div class="problem-grid">
+      <div class="problem-grid alt">
         {exceptions.map((p) => (
           <div class="problem">
             <h3>{p.title}</h3>
@@ -299,8 +299,10 @@ const jsonLd = [
 
   .hero-c .proof {
     margin-top: 1.4rem;
-    padding-left: 1rem;
-    border-left: 3px solid var(--glacier);
+    padding: 0.9rem 1.1rem;
+    background: var(--talon-wash);
+    border-left: 4px solid var(--talon);
+    border-radius: 0 3px 3px 0;
     font-size: 1.08rem;
     color: var(--ink);
   }
@@ -335,8 +337,8 @@ const jsonLd = [
     font-weight: 600;
     font-size: 1.02rem;
     padding: 0.8rem 1.3rem;
-    background: var(--ink);
-    color: var(--frost);
+    background: var(--glacier);
+    color: #ffffff;
     text-decoration: none;
     border-radius: 3px;
   }
@@ -353,7 +355,7 @@ const jsonLd = [
   }
 
   .button.light:hover {
-    background: #ffffff;
+    background: var(--talon-wash);
     color: var(--ink);
   }
 
@@ -366,8 +368,12 @@ const jsonLd = [
   }
 
   .problem {
-    border-top: 2px solid var(--ink);
+    border-top: 3px solid var(--glacier);
     padding: 1.1rem 0 1.6rem;
+  }
+
+  .problem-grid.alt .problem {
+    border-top-color: var(--talon);
   }
 
   .problem p,
@@ -490,7 +496,7 @@ const jsonLd = [
   /* testimonial */
   .case {
     margin-top: 2rem;
-    border-top: 2px solid var(--ink);
+    border-top: 3px solid var(--glacier);
     padding-top: 1.25rem;
   }
 
@@ -541,7 +547,7 @@ const jsonLd = [
   .quote {
     margin: 2rem 0 1.5rem;
     max-width: 44rem;
-    border-top: 2px solid var(--ink);
+    border-top: 3px solid var(--talon);
     padding-top: 1.25rem;
   }
 
@@ -588,7 +594,7 @@ const jsonLd = [
   }
 
   .person {
-    border-top: 2px solid var(--ink);
+    border-top: 3px solid var(--glacier);
     padding-top: 1.25rem;
     display: grid;
     grid-template-columns: 6rem 1fr;
@@ -618,7 +624,8 @@ const jsonLd = [
 
   /* contact band */
   .contact {
-    background: var(--ink);
+    background: var(--glacier-deep);
+    border-top: 6px solid var(--talon);
     color: var(--frost);
     padding: clamp(2rem, 5vw, 3.5rem);
     border-radius: 4px;
@@ -628,10 +635,14 @@ const jsonLd = [
     color: var(--frost);
   }
 
+  .consult .contact > h2::before {
+    background: linear-gradient(90deg, var(--frost) 0 72%, var(--talon) 72% 100%);
+  }
+
   .contact p {
     max-width: 40rem;
     margin: 1rem 0 0;
-    color: #c9d6de;
+    color: #d6e6ec;
   }
 
   .contact-actions {

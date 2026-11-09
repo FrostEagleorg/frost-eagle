@@ -17,6 +17,10 @@
   --glacier: #1d6a86;
   --glacier-deep: #154f64;
   --talon: #a2741a;
+  --talon-wash: #f4ead6;
+  --glacier-wash: #dceaf0;
+  /* the two-tone bar: glacier, then a short run of talon */
+  --two-tone: linear-gradient(90deg, var(--glacier) 0 72%, var(--talon) 72% 100%);
 
   --sans: 'Schibsted Grotesk Variable', system-ui, sans-serif;
   --serif: 'Literata Variable', Georgia, serif;
@@ -42,6 +46,8 @@ html {
 
 body {
   margin: 0;
+  border-top: 5px solid var(--glacier);
+  border-image: var(--two-tone) 1;
   font-family: var(--serif);
   font-size: 1.1875rem;
   line-height: 1.68;
@@ -57,6 +63,7 @@ a {
 a:hover {
   color: var(--glacier-deep);
   text-decoration-thickness: 2px;
+  text-decoration-color: var(--talon);
 }
 
 :focus-visible {
@@ -172,6 +179,7 @@ h4 {
 
 .site-footer {
   margin-top: 6rem;
+  position: relative;
   border-top: 1px solid var(--rule);
   padding-block: 2rem 3rem;
   font-family: var(--sans);
@@ -443,7 +451,7 @@ h4 {
   max-width: var(--measure);
   margin-top: 4rem;
   padding-top: 1.5rem;
-  border-top: 2px solid var(--ink);
+  border-top: 3px solid var(--glacier);
   font-family: var(--sans);
   font-size: 1rem;
   line-height: 1.55;
@@ -494,4 +502,38 @@ h4 {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* ---------- Two-tone accents ---------- */
+
+/* A short glacier-and-talon marker above section headings */
+.section-title::before,
+.consult section > h2::before,
+.case-page h2::before {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 4px;
+  margin-bottom: 0.9rem;
+  background: var(--two-tone);
+  border-radius: 2px;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 3px;
+  background: var(--two-tone);
+}
+
+/* Coloured phrase in a page heading, underlined with a short run of talon */
+h1 .tone {
+  color: var(--glacier);
+  text-decoration: underline;
+  text-decoration-color: var(--talon);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.12em;
 }
